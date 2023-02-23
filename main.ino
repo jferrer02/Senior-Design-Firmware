@@ -52,8 +52,28 @@ void loop() {
       menu_val = 1;
     }
   }
-
-
+  if (b_1 == LOW) {
+    menu_sel = 1;
+  }
+  else {
+    menu_sel = 0;
+  }
+  matrix.print("Menu");
+  matrix.print("\n");
+  if (menu_val == 0) {
+    matrix.print("Comp");
+    if (menu_sel == 1) {
+      matrix.clearScreen();
+      matrix.print("Test\nComp");
+    }
+  }
+  if (menu_val == 1) {
+    matrix.print("Game");
+    if (menu_sel == 1) {
+      matrix.clearScreen();
+      matrix.print("Play\nGame");
+    }
+  }
   matrix.writeScreen();
   delay(50);
 }
