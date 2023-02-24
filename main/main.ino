@@ -34,6 +34,8 @@ void setup() {
 
 void testcomponents();
 
+void moveDot();
+
 void loop() {
   matrix.setRotation(0);
   matrix.clearScreen();
@@ -65,9 +67,10 @@ void loop() {
     matrix.print("Comp");
     if (menu_sel == 1) {
       matrix.clearScreen();
+      matrix.setCursor(0, 0);
       matrix.print("Test\nComp");
       matrix.writeScreen();
-      delay(10000);
+      delay(5000);
       testcomponents();
     }
   }
@@ -75,9 +78,11 @@ void loop() {
     matrix.print("Game");
     if (menu_sel == 1) {
       matrix.clearScreen();
+      matrix.setCursor(0, 0);
       matrix.print("Play\nGame");
       matrix.writeScreen();
-      delay(10000);
+      delay(5000);
+      moveDot();
     }
   }
   matrix.writeScreen();
@@ -120,4 +125,65 @@ void testcomponents() {
     matrix.writeScreen();
     delay(50);
   }
+}
+
+void moveDot() {
+  int x = 10;
+  int y = 8;
+  int r = 0; //for while loop
+  int healthdot_x = 5;
+  int healthdot_y = 5;
+  int healthdot_countdown = 100;
+  while (r < 1) {
+    b_1 = digitalRead(button_1);
+    b_2 = digitalRead(button_2);
+    X = analogRead(A0);  // read the A0 input pin
+    Y = analogRead(A1);  // read the A1 input pin
+    matrix.setRotation(0);
+    matrix.clearScreen();
+    matrix.setCursor(0, 0);  
+    if (healthdot_countdown > 0) {
+      matrix.setPixel(healthdot_x, healthdot_y);
+      //matrix.writeScreen();
+    }
+/*    
+    else {
+      healthdot_countdown = 40000;
+    }
+    */
+    healthdot_countdown--;
+    if (X > 550) {
+      x++;
+    }
+    if (X < 450) {
+      x--;
+    }
+    if (Y > 550) {
+      y--;
+    }
+    if (Y < 450) {
+      y++;
+    }
+    if (x == -1) {
+      x = 0;
+    }    
+    if (y == -1) {
+      y = 0;
+    }
+    if (x == 24) {
+      x = 23;
+    }   
+    if (y == 16) {
+      y = 15;
+    }
+    //matrix.setRotation(0);
+    //matrix.clearScreen();
+    //matrix.setCursor(0, 0);  
+    matrix.setPixel(x, y);
+    matrix.writeScreen();
+    if (b_1 == LOW) {
+      break;
+    }
+    delay(50); 
+  }  
 }
