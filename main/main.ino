@@ -32,6 +32,8 @@ void setup() {
   matrix.setTextWrap(false);
 }
 
+void testcomponents();
+
 void loop() {
   matrix.setRotation(0);
   matrix.clearScreen();
@@ -58,13 +60,15 @@ void loop() {
   else {
     menu_sel = 0;
   }
-  matrix.print("Menu");
-  matrix.print("\n");
+  matrix.print("Menu\n"); //print menu at top of screen
   if (menu_val == 0) {
     matrix.print("Comp");
     if (menu_sel == 1) {
       matrix.clearScreen();
       matrix.print("Test\nComp");
+      matrix.writeScreen();
+      delay(10000);
+      testcomponents();
     }
   }
   if (menu_val == 1) {
@@ -72,6 +76,8 @@ void loop() {
     if (menu_sel == 1) {
       matrix.clearScreen();
       matrix.print("Play\nGame");
+      matrix.writeScreen();
+      delay(10000);
     }
   }
   matrix.writeScreen();
