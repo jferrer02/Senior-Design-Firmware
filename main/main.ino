@@ -130,9 +130,12 @@ void moveDot() {
   int x = 10;
   int y = 8;
   int r = 0; //for while loop
-  int healthdot_x = 5;
-  int healthdot_y = 5;
+  //taking code from stack overflow
+  //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+  int healthdot_x = rand()%(23-0 + 1) + 0;
+  int healthdot_y = rand()%(15-0 + 1) + 0;
   int healthdot_countdown = 100;
+  health_bar = 1; //players health, lose if reaches 0
   while (r < 1) {
     b_1 = digitalRead(button_1);
     b_2 = digitalRead(button_2);
@@ -141,14 +144,24 @@ void moveDot() {
     matrix.setRotation(0);
     matrix.clearScreen();
     matrix.setCursor(0, 0);  
-    if (healthdot_countdown > 0) {
+    if ((x == healthdot_x) && (y == healthdot_y)) {
+      health_bar++;
+      healthdot_countdown = 100;
+      //taking code from stack overflow
+      //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+      int healthdot_x = rand()%(23-0 + 1) + 0;
+      int healthdot_y = rand()%(15-0 + 1) + 0;
+    }
+    else if (healthdot_countdown > 0) {
       matrix.setPixel(healthdot_x, healthdot_y);
-    }
-/*    
+    } 
     else {
-      healthdot_countdown = 40000;
+      healthdot_countdown = 100;
+      //taking code from stack overflow
+      //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+      int healthdot_x = rand()%(23-0 + 1) + 0;
+      int healthdot_y = rand()%(15-0 + 1) + 0;
     }
-    */
     healthdot_countdown--;
     if (X > 550) {
       x++;
