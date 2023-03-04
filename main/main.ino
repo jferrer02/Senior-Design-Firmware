@@ -135,7 +135,14 @@ void moveDot() {
   int healthdot_x = rand()%(23-0 + 1) + 0;
   int healthdot_y = rand()%(15-0 + 1) + 0;
   int healthdot_countdown = 100;
-  health_bar = 1; //players health, lose if reaches 0
+  int health_bar = 1; //players health, lose if reaches 0
+  matrix.setRotation(0);
+  matrix.clearScreen();
+  matrix.setCursor(0, 0); 
+  matrix.print("Hlth\n");
+  matrix.print(health_bar);
+  matrix.writeScreen();
+  delay(2000);  
   while (r < 1) {
     b_1 = digitalRead(button_1);
     b_2 = digitalRead(button_2);
@@ -146,11 +153,17 @@ void moveDot() {
     matrix.setCursor(0, 0);  
     if ((x == healthdot_x) && (y == healthdot_y)) {
       health_bar++;
+      matrix.setRotation(0);
+      matrix.print("Hlth\n");
+      matrix.print(health_bar);
+      matrix.writeScreen();
+      delay(2000);
+      matrix.clearScreen();
       healthdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      int healthdot_x = rand()%(23-0 + 1) + 0;
-      int healthdot_y = rand()%(15-0 + 1) + 0;
+      healthdot_x = rand()%(23-0 + 1) + 0;
+      healthdot_y = rand()%(15-0 + 1) + 0;
     }
     else if (healthdot_countdown > 0) {
       matrix.setPixel(healthdot_x, healthdot_y);
@@ -159,8 +172,8 @@ void moveDot() {
       healthdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      int healthdot_x = rand()%(23-0 + 1) + 0;
-      int healthdot_y = rand()%(15-0 + 1) + 0;
+      healthdot_x = rand()%(23-0 + 1) + 0;
+      healthdot_y = rand()%(15-0 + 1) + 0;
     }
     healthdot_countdown--;
     if (X > 550) {
