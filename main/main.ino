@@ -33,7 +33,7 @@ void setup() {
 
 void testcomponents();
 
-void moveDot();
+void Game1();
 
 void loop() {
   matrix.setRotation(0);
@@ -81,7 +81,7 @@ void loop() {
       matrix.print("Play\nGame");
       matrix.writeScreen();
       delay(5000);
-      moveDot();
+      Game1();
     }
   }
   matrix.writeScreen();
@@ -126,7 +126,7 @@ void testcomponents() {
   }
 }
 
-void moveDot() {
+void Game1() {
   int x = 10;
   int y = 8;
   int r = 0; //for while loop
@@ -134,8 +134,24 @@ void moveDot() {
   //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
   int healthdot_x = rand()%(23-0 + 1) + 0;
   int healthdot_y = rand()%(15-0 + 1) + 0;
-  int healthdot_countdown = 100;
+  int healthdot_countdown = 100; // a countdown for the health dot to go away
   int health_bar = 1; //players health, lose if reaches 0
+  // arrow pointing to the right
+  int right_point_y = rand()%(13-2 + 1) + 0;
+  std::array<int, 5> right_arrow_x = {-2,-1,0,-1,-2};
+  std::array<int, 5> right_arrow_y = {right_point_y+2,right_point_y+1,right_point_y,right_point_y-1,right_point_y-2};
+  // arrow pointing to the left
+  int left_point_y = rand()%(13-2 + 1) + 0;
+  std::array<int, 5> left_arrow_x = {25,24,23,24,25};
+  std::array<int, 5> left_arrow_y = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
+  // arrow pointing up
+  int up_point_x = rand()%(21-2 + 1) + 0;
+  std::array<int, 5> up_arrow_x = {up_point-2,up_point-1,up_point_x,up_point+1,up_point+2};
+  std::array<int, 5> up_arrow_y = {17,16,15,16,17};
+  // arrow pointing down
+  int down_point_x = rand()%(21-2 + 1) + 0;
+  std::array<int, 5> down_arrow_x = {down_point-2,down_point-1,down_point_x,down_point+1,down_point+2};
+  std::array<int, 5> down_arrow_y = {-2,-1,0,-1,-2};
   matrix.setRotation(0);
   matrix.clearScreen();
   matrix.setCursor(0, 0); 
@@ -176,6 +192,7 @@ void moveDot() {
       healthdot_y = rand()%(15-0 + 1) + 0;
     }
     healthdot_countdown--;
+    // 
     if (X > 550) {
       x++;
     }
