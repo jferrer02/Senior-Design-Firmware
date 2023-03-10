@@ -140,20 +140,20 @@ void Game1() {
   int health_bar = 1; //players health, lose if reaches 0
   // arrow pointing to the right
   int right_point_y = rand()%(13-2 + 1) + 0;
-  int ra_x[5] = {-2,-1,0,-1,-2};
+  int ra_x[5] = {-3,-2,-1,-2,-3};
   int ra_y[5] = {right_point_y+2,right_point_y+1,right_point_y,right_point_y-1,right_point_y-2};
   // arrow pointing to the left
   int left_point_y = rand()%(13-2 + 1) + 0;
-  int la_x[5] = {25,24,23,24,25};
+  int la_x[5] = {26,25,24,25,26};
   int la_y[5] = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
   // arrow pointing up
   int up_point_x = rand()%(21-2 + 1) + 0;
   int ua_x[5] = {up_point-2,up_point-1,up_point_x,up_point+1,up_point+2};
-  int ua_y[5] = {17,16,15,16,17};
+  int ua_y[5] = {18,17,16,17,18};
   // arrow pointing down
   int down_point_x = rand()%(21-2 + 1) + 0;
   int da_x[5] = {down_point-2,down_point-1,down_point_x,down_point+1,down_point+2};
-  int da_y[5] = {-2,-1,0,-1,-2};
+  int da_y[5] = {-3,-2,-1,-2,-3};
   matrix.setRotation(0);
   matrix.clearScreen();
   matrix.setCursor(0, 0); 
@@ -194,7 +194,8 @@ void Game1() {
       healthdot_y = rand()%(15-0 + 1) + 0;
     }
     healthdot_countdown--;
-    // 
+    
+    // move dot with joystick and keep it within bounds 
     if (X > 550) {
       x++;
     }
@@ -222,7 +223,7 @@ void Game1() {
     matrix.setPixel(x, y);
 
     //right pointing arrow
-    OutputArrows(ra_x[0],ra_x[1],ra_x[2],ra_x[3],ra_x[4],ra_y[0],ra_y[1],ra_y[2],ra_y[3],ra_y[4]);
+    OutputArrows(ra_x[0],ra_x[1],ra_x[2],ra_x[3],ra_x[4],ra_y[0],ra_y[1],ra_y[2],ra_y[3],ra_y[4]); //output right pointing arrow
     if ((x==ra_x[0] && y==ra_y[0]) || (x==ra_x[1] && y==ra_y[1]) || (x==ra_x[2] && y==ra_y[2]) || (x==ra_x[3] && y==ra_y[3]) || (x==ra_x[4] && y==ra_y[4])) {
       health_bar--;
       matrix.setRotation(0);
@@ -241,14 +242,24 @@ void Game1() {
       The more health you have, the less far back the arrows can start and the game gets more
       difficult.
       */
+      ra_x[0] = -4; // reset x location
+      ra_x[1] = -3; // reset x location
+      ra_x[2] = -2; // reset x location
+      ra_x[3] = -3; // reset x location
+      ra_x[4] = -4; // reset x location
+
+      right_point_y = rand()%(13-2 + 1) + 0;  // new random y value
+      ra_y[0] = right_point_y + 2;            // reset y location
+      ra_y[1] = right_point_y + 1;            // reset y location
+      ra_y[2] = right_point_y;                // reset y location
+      ra_y[3] = right_point_y - 1;            // reset y location
+      ra_y[4] = right_point_y - 2;            // reset y location
     }
     ra_x[0] = ra_x[0] + 1; //increment arrow
     ra_x[1] = ra_x[1] + 1; //increment arrow
     ra_x[2] = ra_x[2] + 1; //increment arrow
     ra_x[3] = ra_x[3] + 1; //increment arrow
     ra_x[4] = ra_x[4] + 1; //increment arrow
-
-
 
     matrix.writeScreen();
     if (b_1 == LOW) {
