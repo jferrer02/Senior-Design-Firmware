@@ -1,9 +1,4 @@
 #include "Adafruit_HT1632.h"
-<<<<<<< HEAD
-
-=======
-//this is a comment to show how to pull
->>>>>>> menu
 #define HT_DATA 3
 #define HT_WR   4
 #define HT_CS   5
@@ -18,13 +13,9 @@ int b_2 = 0;
 int X = 0;  // variable to store the value read
 int Y = 0;  // variable to store the value read
 
-<<<<<<< HEAD
-//menu options
-=======
 //menu variables
 int menu_val = 0;
 int menu_sel = 0;
->>>>>>> menu
 
 // use this line for single matrix
 Adafruit_HT1632LEDMatrix matrix = Adafruit_HT1632LEDMatrix(HT_DATA, HT_WR, HT_CS);
@@ -40,108 +31,32 @@ void setup() {
   matrix.setTextWrap(false);
 }
 
-<<<<<<< HEAD
-=======
 void testcomponents();
 
-void moveDot();
+void Game1();
 
->>>>>>> menu
 void loop() {
   matrix.setRotation(0);
   matrix.clearScreen();
   matrix.setCursor(0, 0);
-<<<<<<< HEAD
-  
-  //menu function
-  
-=======
->>>>>>> menu
   b_1 = digitalRead(button_1);
   b_2 = digitalRead(button_2);
   X = analogRead(A0);  // read the A0 input pin
   Y = analogRead(A1);  // read the A1 input pin 
-<<<<<<< HEAD
-
-  if (b_1 == LOW) {
-    matrix.print("b1");
-  }       
-  else if ((X > 550) || (X < 450)) {
-    matrix.print(X);
-  }
-  else {
-    matrix.print("none");
-  }
-
-  matrix.print("\n");
-  
-  if (b_2 == LOW) {
-    matrix.print("b2");
-  }
-  else if ((Y > 550) || (Y < 450)) {
-    matrix.print(Y); 
-  }
-  else {
-    matrix.print("none");
-    }
-  matrix.writeScreen();
-  delay(50);
-  
-  /*
-  matrix.print("New \n" "test"); 
-  matrix.writeScreen(); 
-  delay(4000);
-  for(uint8_t i=0; i<4; i++) {
-    matrix.setRotation(0);
-    matrix.clearScreen();
-    matrix.setCursor(0, 0);
-    matrix.print("Test");
-    matrix.writeScreen();
-    delay(1000);
-    for (uint8_t y=0; y<matrix.height(); y++) {
-      for (uint8_t x=0; x< matrix.width(); x++) {
-        matrix.setPixel(x, y);
-        matrix.writeScreen();
-      }
-    }
-    // blink!
-    matrix.blink(false);
-    delay(2000);
-    matrix.blink(false);
-    // Adjust the brightness down
-    for (int8_t i=15; i>=0; i--) {
-      matrix.setBrightness(i);
-      delay(100);
-    }
-    // then back up
-    for (uint8_t i=0; i<16; i++) {
-      matrix.setBrightness(i);
-      delay(100);
-    }
-
-    for (uint8_t y=0; y<matrix.height(); y++) {
-      for (uint8_t x=0; x< matrix.width(); x++) {
-        matrix.clrPixel(x, y);
-        matrix.writeScreen();
-      
-      }
-      
-    }
-  }
-  */
-=======
-  if (X > 550) {
+  if (X > 700) {
     menu_val++;
     if (menu_val > 1) {
       menu_val = 0;
     }
   }
-  if (X < 450) {
+  
+  if (X < 300) {
     menu_val--;
     if (menu_val < 0) {
       menu_val = 1;
     }
   }
+  
   if (b_1 == LOW) {
     menu_sel = 1;
   }
@@ -168,7 +83,7 @@ void loop() {
       matrix.print("Play\nGame");
       matrix.writeScreen();
       delay(5000);
-      moveDot();
+      Game1();
     }
   }
   matrix.writeScreen();
@@ -213,13 +128,42 @@ void testcomponents() {
   }
 }
 
-void moveDot() {
+void Game1() {
   int x = 10;
   int y = 8;
   int r = 0; //for while loop
-  int healthdot_x = 5;
-  int healthdot_y = 5;
-  int healthdot_countdown = 100;
+  //taking code from stack overflow
+  //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+  
+  int healthdot_x = rand()%(23-0 + 1) + 0;
+  int healthdot_y = rand()%(15-0 + 1) + 0;
+  int healthdot_countdown = 100; // a countdown for the health dot to go away
+  int health_bar = 1; //players health, lose if reaches 0
+  /*
+  // arrow pointing to the right
+  int right_point_y = rand()%(13-2 + 1) + 0;
+  std::array<int, 5> right_arrow_x = {-2,-1,0,-1,-2};
+  std::array<int, 5> right_arrow_y = {right_point_y+2,right_point_y+1,right_point_y,right_point_y-1,right_point_y-2};
+  // arrow pointing to the left
+  int left_point_y = rand()%(13-2 + 1) + 0;
+  std::array<int, 5> left_arrow_x = {25,24,23,24,25};
+  std::array<int, 5> left_arrow_y = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
+  // arrow pointing up
+  int up_point_x = rand()%(21-2 + 1) + 0;
+  std::array<int, 5> up_arrow_x = {up_point-2,up_point-1,up_point_x,up_point+1,up_point+2};
+  std::array<int, 5> up_arrow_y = {17,16,15,16,17};
+  // arrow pointing down
+  int down_point_x = rand()%(21-2 + 1) + 0;
+  std::array<int, 5> down_arrow_x = {down_point-2,down_point-1,down_point_x,down_point+1,down_point+2};
+  std::array<int, 5> down_arrow_y = {-2,-1,0,-1,-2};
+  */
+  matrix.setRotation(0);
+  matrix.clearScreen();
+  matrix.setCursor(0, 0); 
+  matrix.print("Hlth\n");
+  matrix.print(health_bar);
+  matrix.writeScreen();
+  delay(2000);  
   while (r < 1) {
     b_1 = digitalRead(button_1);
     b_2 = digitalRead(button_2);
@@ -228,26 +172,42 @@ void moveDot() {
     matrix.setRotation(0);
     matrix.clearScreen();
     matrix.setCursor(0, 0);  
-    if (healthdot_countdown > 0) {
+    if ((x == healthdot_x) && (y == healthdot_y)) {
+      health_bar++;
+      matrix.setRotation(0);
+      matrix.print("Hlth\n");
+      matrix.print(health_bar);
+      matrix.writeScreen();
+      delay(2000);
+      matrix.clearScreen();
+      healthdot_countdown = 100;
+      //taking code from stack overflow
+      //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+      healthdot_x = rand()%(23-0 + 1) + 0;
+      healthdot_y = rand()%(15-0 + 1) + 0;
+    }
+    else if (healthdot_countdown > 0) {
       matrix.setPixel(healthdot_x, healthdot_y);
-      //matrix.writeScreen();
-    }
-/*    
+    } 
     else {
-      healthdot_countdown = 40000;
+      healthdot_countdown = 100;
+      //taking code from stack overflow
+      //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+      healthdot_x = rand()%(23-0 + 1) + 0;
+      healthdot_y = rand()%(15-0 + 1) + 0;
     }
-    */
     healthdot_countdown--;
-    if (X > 550) {
+    // 
+    if (X > 650) {
       x++;
     }
-    if (X < 450) {
+    if (X < 350) {
       x--;
     }
-    if (Y > 550) {
+    if (Y > 650) {
       y--;
     }
-    if (Y < 450) {
+    if (Y < 350) {
       y++;
     }
     if (x == -1) {
@@ -261,10 +221,7 @@ void moveDot() {
     }   
     if (y == 16) {
       y = 15;
-    }
-    //matrix.setRotation(0);
-    //matrix.clearScreen();
-    //matrix.setCursor(0, 0);  
+    } 
     matrix.setPixel(x, y);
     matrix.writeScreen();
     if (b_1 == LOW) {
@@ -272,5 +229,4 @@ void moveDot() {
     }
     delay(50); 
   }  
->>>>>>> menu
 }

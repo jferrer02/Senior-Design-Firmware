@@ -3,3 +3,4 @@ https://store-usa.arduino.cc/products/arduino-uno-rev3/?selectedStore=us
 https://www.circuito.io/blog/arduino-uno-pinout/
 
 https://www.arduino.cc/reference/en/
+
