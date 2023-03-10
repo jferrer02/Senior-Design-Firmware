@@ -1,5 +1,3 @@
-#include <iostream>
-using namespace std;
 #include "Adafruit_HT1632.h"
 #define HT_DATA 3
 #define HT_WR   4
@@ -45,13 +43,13 @@ void loop() {
   b_2 = digitalRead(button_2);
   X = analogRead(A0);  // read the A0 input pin
   Y = analogRead(A1);  // read the A1 input pin 
-  if (X > 550) {
+  if (X > 700) {
     menu_val++;
     if (menu_val > 1) {
       menu_val = 0;
     }
   }
-  if (X < 450) {
+  if (X < 300) {
     menu_val--;
     if (menu_val < 0) {
       menu_val = 1;
@@ -138,6 +136,7 @@ void Game1() {
   int healthdot_y = rand()%(15-0 + 1) + 0;
   int healthdot_countdown = 100; // a countdown for the health dot to go away
   int health_bar = 1; //players health, lose if reaches 0
+  
   // arrow pointing to the right
   int right_point_y = rand()%(13-2 + 1) + 0;
   int ra_x[5] = {-3,-2,-1,-2,-3};
@@ -196,16 +195,16 @@ void Game1() {
     healthdot_countdown--;
     
     // move dot with joystick and keep it within bounds 
-    if (X > 550) {
+    if (X > 650) {
       x++;
     }
-    if (X < 450) {
+    if (X < 350) {
       x--;
     }
-    if (Y > 550) {
+    if (Y > 650) {
       y--;
     }
-    if (Y < 450) {
+    if (Y < 350) {
       y++;
     }
     if (x == -1) {
