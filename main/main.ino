@@ -127,6 +127,7 @@ void testcomponents() {
 }
 
 void Game1() {
+  // adding a comment for the sake of merging
   int x = 10;
   int y = 8;
   int r = 0; //for while loop
