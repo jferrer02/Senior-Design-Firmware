@@ -87,7 +87,7 @@ void loop() {
     }
   }
   matrix.writeScreen();
-  delay(50);
+  delay(250);
 }
 
 void testcomponents() {
@@ -145,17 +145,23 @@ void Game1() {
   int ra_x[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
   int ra_y[10] = {right_point_y+2,right_point_y+1,right_point_y,right_point_y-1,right_point_y-2,right_point_y+2,right_point_y+1,right_point_y,right_point_y-1,right_point_y-2};
   // arrow pointing to the left
-  int left_point_y = rand()%(13-2 + 1) + 0;
-  int la_x[5] = {26,25,24,25,26};
-  int la_y[5] = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
+  int left_point_y = rand()%(15-0 + 1) + 0;
+  int la_x[10] = {26,25,24,25,26,27,26,25,26,27};
+  int la_y[10] = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2,left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
   // arrow pointing up
-  int up_point_x = rand()%(21-2 + 1) + 0;
-  int ua_x[5] = {up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2};
-  int ua_y[5] = {18,17,16,17,18};
+  int up_point_x = rand()%(23-0 + 1) + 0;
+  int ua_x[10] = {up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2,up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2};
+  int ua_y[10] = {18,17,16,17,18,19,18,17,18,19};
   // arrow pointing down
-  int down_point_x = rand()%(21-2 + 1) + 0;
-  int da_x[5] = {down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2};
-  int da_y[5] = {-3,-2,-1,-2,-3};
+  int down_point_x = rand()%(23-0 + 1) + 0;
+  int da_x[10] = {down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2,down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2};
+  int da_y[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
+
+  int zr = rand()%(100-0 + 1) + 0;
+  int zl = rand()%(100-0 + 1) + 0;
+  int zu = rand()%(100-0 + 1) + 0;
+  int zd = rand()%(100-0 + 1) + 0;  
+
   matrix.setRotation(0);
   matrix.clearScreen();
   matrix.setCursor(0, 0); 
@@ -184,6 +190,13 @@ void Game1() {
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       healthdot_x = rand()%(23-0 + 1) + 0;
       healthdot_y = rand()%(15-0 + 1) + 0;
+
+      //~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      // reset arrows as well!!!
+
+      //~~~~~~~~~~~~~~~~~~~~~~~~~
+
     }
     else if (healthdot_countdown > 0) {
       matrix.setPixel(healthdot_x, healthdot_y);
@@ -224,11 +237,11 @@ void Game1() {
     } 
     matrix.setPixel(x, y);
 
-    //right pointing arrow
+    //~-~-~-~-~-~-~-~-~-Right Pointing Arrow~-~-~-~-~-~-~-~-~-
     OutputArrows(ra_x[0],ra_x[1],ra_x[2],ra_x[3],ra_x[4],ra_x[5],ra_x[6],ra_x[7],ra_x[8],ra_x[9],ra_y[0],ra_y[1],ra_y[2],ra_y[3],ra_y[4],ra_y[5],ra_y[6],ra_y[7],ra_y[8],ra_y[9]); //output right pointing arrow
     if ((x==ra_x[0] && y==ra_y[0]) || (x==ra_x[1] && y==ra_y[1]) || (x==ra_x[2] && y==ra_y[2]) || (x==ra_x[3] && y==ra_y[3]) || (x==ra_x[4] && y==ra_y[4]) || (x==ra_x[5] && y==ra_y[5]) || (x==ra_x[6] && y==ra_y[6]) || (x==ra_x[7] && y==ra_y[7]) || (x==ra_x[8] && y==ra_y[8]) || (x==ra_x[9] && y==ra_y[9])) {
       matrix.clearScreen();
-      health_bar--;
+      //health_bar--;
       matrix.setRotation(0);
       matrix.print("Hlth\n");
       matrix.print(health_bar);
@@ -245,16 +258,17 @@ void Game1() {
       The more health you have, the less far back the arrows can start and the game gets more
       difficult.
       */
-      ra_x[0] = -4; // reset x location
-      ra_x[1] = -3; // reset x location
-      ra_x[2] = -2; // reset x location
-      ra_x[3] = -3; // reset x location
-      ra_x[4] = -4; // reset x location
-      ra_x[5] = -5; // reset x location
-      ra_x[6] = -4; // reset x location
-      ra_x[7] = -3; // reset x location
-      ra_x[8] = -4; // reset x location
-      ra_x[9] = -5; // reset x location
+      zr = rand()%(100-0 + 1) + 0;
+      ra_x[0] = -4 - zr; // reset x location
+      ra_x[1] = -3 - zr; // reset x location
+      ra_x[2] = -2 - zr; // reset x location
+      ra_x[3] = -3 - zr; // reset x location
+      ra_x[4] = -4 - zr; // reset x location
+      ra_x[5] = -5 - zr; // reset x location
+      ra_x[6] = -4 - zr; // reset x location
+      ra_x[7] = -3 - zr; // reset x location
+      ra_x[8] = -4 - zr; // reset x location
+      ra_x[9] = -5 - zr; // reset x location
 
       right_point_y = rand()%(15-0 + 1) + 0;  // new random y value
       ra_y[0] = right_point_y + 2;            // reset y location
@@ -269,16 +283,17 @@ void Game1() {
       ra_y[9] = right_point_y - 2;            // reset y location
     }
     if (ra_x[2]==27) {
-      ra_x[0] = -4; // reset x location
-      ra_x[1] = -3; // reset x location
-      ra_x[2] = -2; // reset x location
-      ra_x[3] = -3; // reset x location
-      ra_x[4] = -4; // reset x location
-      ra_x[5] = -5; // reset x location
-      ra_x[6] = -4; // reset x location
-      ra_x[7] = -3; // reset x location
-      ra_x[8] = -4; // reset x location
-      ra_x[9] = -5; // reset x location
+      zr = rand()%(100-0 + 1) + 0;
+      ra_x[0] = -4 - zr; // reset x location
+      ra_x[1] = -3 - zr; // reset x location
+      ra_x[2] = -2 - zr; // reset x location
+      ra_x[3] = -3 - zr; // reset x location
+      ra_x[4] = -4 - zr; // reset x location
+      ra_x[5] = -5 - zr; // reset x location
+      ra_x[6] = -4 - zr; // reset x location
+      ra_x[7] = -3 - zr; // reset x location
+      ra_x[8] = -4 - zr; // reset x location
+      ra_x[9] = -5 - zr; // reset x location
 
       right_point_y = rand()%(15-0 + 1) + 0;  // new random y value
       ra_y[0] = right_point_y + 2;            // reset y location
@@ -292,16 +307,280 @@ void Game1() {
       ra_y[8] = right_point_y - 1;            // reset y location
       ra_y[9] = right_point_y - 2;            // reset y location
     }
-    ra_x[0] = ra_x[0] + 1; //increment arrow
-    ra_x[1] = ra_x[1] + 1; //increment arrow
-    ra_x[2] = ra_x[2] + 1; //increment arrow
-    ra_x[3] = ra_x[3] + 1; //increment arrow
-    ra_x[4] = ra_x[4] + 1; //increment arrow
-    ra_x[5] = ra_x[5] + 1; //increment arrow
-    ra_x[6] = ra_x[6] + 1; //increment arrow
-    ra_x[7] = ra_x[7] + 1; //increment arrow
-    ra_x[8] = ra_x[8] + 1; //increment arrow
-    ra_x[9] = ra_x[9] + 1; //increment arrow
+    ra_x[0] = ra_x[0] + 1; //increment arrow to the right
+    ra_x[1] = ra_x[1] + 1; //increment arrow to the right
+    ra_x[2] = ra_x[2] + 1; //increment arrow to the right
+    ra_x[3] = ra_x[3] + 1; //increment arrow to the right
+    ra_x[4] = ra_x[4] + 1; //increment arrow to the right
+    ra_x[5] = ra_x[5] + 1; //increment arrow to the right
+    ra_x[6] = ra_x[6] + 1; //increment arrow to the right
+    ra_x[7] = ra_x[7] + 1; //increment arrow to the right
+    ra_x[8] = ra_x[8] + 1; //increment arrow to the right
+    ra_x[9] = ra_x[9] + 1; //increment arrow to the right
+
+    
+    //~-~-~-~-~-~-~-~-~-Left Pointing Arrow~-~-~-~-~-~-~-~-~-
+    OutputArrows(la_x[0],la_x[1],la_x[2],la_x[3],la_x[4],la_x[5],la_x[6],la_x[7],la_x[8],la_x[9],la_y[0],la_y[1],la_y[2],la_y[3],la_y[4],la_y[5],la_y[6],la_y[7],la_y[8],la_y[9]); //output left pointing arrow
+    if ((x==la_x[0] && y==la_y[0]) || (x==la_x[1] && y==la_y[1]) || (x==la_x[2] && y==la_y[2]) || (x==la_x[3] && y==la_y[3]) || (x==la_x[4] && y==la_y[4]) || (x==la_x[5] && y==la_y[5]) || (x==la_x[6] && y==la_y[6]) || (x==la_x[7] && y==la_y[7]) || (x==la_x[8] && y==la_y[8]) || (x==la_x[9] && y==la_y[9])) {
+      matrix.clearScreen();
+      //health_bar--;
+      matrix.setRotation(0);
+      matrix.print("Hlth\n");
+      matrix.print(health_bar);
+      matrix.writeScreen();
+      delay(2000);
+      matrix.clearScreen();
+      healthdot_countdown = 100;
+      //taking code from stack overflow
+      //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+      healthdot_x = rand()%(23-0 + 1) + 0;
+      healthdot_y = rand()%(15-0 + 1) + 0;
+      /* reset x and y values of arrows, can use references in a function that also take in
+      parameters for how far back the arrows can start (where there will be some randomness).
+      The more health you have, the less far back the arrows can start and the game gets more
+      difficult. */
+      
+      /* 
+      // arrow pointing to the left
+      int left_point_y = rand()%(15-0 + 1) + 0;
+      int la_x[10] = {26,25,24,25,26,27,26,25,26,27};
+      int la_y[10] = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2,left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
+      */
+      zl = rand()%(100-0 + 1) + 0;
+      la_x[0] = 27 + zl; // reset x location
+      la_x[1] = 26 + zl; // reset x location
+      la_x[2] = 25 + zl; // reset x location
+      la_x[3] = 26 + zl; // reset x location
+      la_x[4] = 27 + zl; // reset x location
+      la_x[5] = 28 + zl; // reset x location
+      la_x[6] = 27 + zl; // reset x location
+      la_x[7] = 26 + zl; // reset x location
+      la_x[8] = 27 + zl; // reset x location
+      la_x[9] = 28 + zl; // reset x location
+
+      left_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      la_y[0] = left_point_y + 2;            // reset y location
+      la_y[1] = left_point_y + 1;            // reset y location
+      la_y[2] = left_point_y;                // reset y location
+      la_y[3] = left_point_y - 1;            // reset y location
+      la_y[4] = left_point_y - 2;            // reset y location
+      la_y[5] = left_point_y + 2;            // reset y location
+      la_y[6] = left_point_y + 1;            // reset y location
+      la_y[7] = left_point_y;                // reset y location
+      la_y[8] = left_point_y - 1;            // reset y location
+      la_y[9] = left_point_y - 2;            // reset y location
+    }
+    if (la_x[2]==-4) {
+      zl = rand()%(100-0 + 1) + 0;
+      la_x[0] = 27 + zl; // reset x location
+      la_x[1] = 26 + zl; // reset x location
+      la_x[2] = 25 + zl; // reset x location
+      la_x[3] = 26 + zl; // reset x location
+      la_x[4] = 27 + zl; // reset x location
+      la_x[5] = 28 + zl; // reset x location
+      la_x[6] = 27 + zl; // reset x location
+      la_x[7] = 26 + zl; // reset x location
+      la_x[8] = 27 + zl; // reset x location
+      la_x[9] = 28 + zl; // reset x location
+
+      left_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      la_y[0] = left_point_y + 2;            // reset y location
+      la_y[1] = left_point_y + 1;            // reset y location
+      la_y[2] = left_point_y;                // reset y location
+      la_y[3] = left_point_y - 1;            // reset y location
+      la_y[4] = left_point_y - 2;            // reset y location
+      la_y[5] = left_point_y + 2;            // reset y location
+      la_y[6] = left_point_y + 1;            // reset y location
+      la_y[7] = left_point_y;                // reset y location
+      la_y[8] = left_point_y - 1;            // reset y location
+      la_y[9] = left_point_y - 2;            // reset y location
+    }
+    la_x[0] = la_x[0] - 1; //increment arrow to the left
+    la_x[1] = la_x[1] - 1; //increment arrow to the left
+    la_x[2] = la_x[2] - 1; //increment arrow to the left
+    la_x[3] = la_x[3] - 1; //increment arrow to the left
+    la_x[4] = la_x[4] - 1; //increment arrow to the left
+    la_x[5] = la_x[5] - 1; //increment arrow to the left
+    la_x[6] = la_x[6] - 1; //increment arrow to the left
+    la_x[7] = la_x[7] - 1; //increment arrow to the left
+    la_x[8] = la_x[8] - 1; //increment arrow to the left
+    la_x[9] = la_x[9] - 1; //increment arrow to the left
+
+    //~-~-~-~-~-~-~-~-~-Up Pointing Arrow~-~-~-~-~-~-~-~-~-
+    OutputArrows(ua_x[0],ua_x[1],ua_x[2],ua_x[3],ua_x[4],ua_x[5],ua_x[6],ua_x[7],ua_x[8],ua_x[9],ua_y[0],ua_y[1],ua_y[2],ua_y[3],ua_y[4],ua_y[5],ua_y[6],ua_y[7],ua_y[8],ua_y[9]); //output up pointing arrow
+    if ((x==ua_x[0] && y==ua_y[0]) || (x==ua_x[1] && y==ua_y[1]) || (x==ua_x[2] && y==ua_y[2]) || (x==ua_x[3] && y==ua_y[3]) || (x==ua_x[4] && y==ua_y[4]) || (x==ua_x[5] && y==ua_y[5]) || (x==ua_x[6] && y==ua_y[6]) || (x==ua_x[7] && y==ua_y[7]) || (x==ua_x[8] && y==ua_y[8]) || (x==ua_x[9] && y==ua_y[9])) {
+      matrix.clearScreen();
+      //health_bar--;
+      matrix.setRotation(0);
+      matrix.print("Hlth\n");
+      matrix.print(health_bar);
+      matrix.writeScreen();
+      delay(2000);
+      matrix.clearScreen();
+      healthdot_countdown = 100;
+      //taking code from stack overflow
+      //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+      healthdot_x = rand()%(23-0 + 1) + 0;
+      healthdot_y = rand()%(15-0 + 1) + 0;
+      /* reset x and y values of arrows, can use references in a function that also take in
+      parameters for how far back the arrows can start (where there will be some randomness).
+      The more health you have, the less far back the arrows can start and the game gets more
+      difficult. */
+      
+      /* 
+      // arrow pointing up
+      int up_point_x = rand()%(23-0 + 1) + 0;
+      int ua_x[10] = {up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2,up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2};
+      int ua_y[10] = {18,17,16,17,18,19,18,17,18,19};
+      */
+      zu = rand()%(100-0 + 1) + 0;
+      ua_y[0] = 18 + zu; // reset y location
+      ua_y[1] = 17 + zu; // reset y location
+      ua_y[2] = 16 + zu; // reset y location
+      ua_y[3] = 17 + zu; // reset y location
+      ua_y[4] = 18 + zu; // reset y location
+      ua_y[5] = 19 + zu; // reset y location
+      ua_y[6] = 18 + zu; // reset y location
+      ua_y[7] = 17 + zu; // reset y location
+      ua_y[8] = 18 + zu; // reset y location
+      ua_y[9] = 19 + zu; // reset y location
+
+      up_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      ua_x[0] = up_point_x + 2;            // reset x location
+      ua_x[1] = up_point_x + 1;            // reset x location
+      ua_x[2] = up_point_x;                // reset x location
+      ua_x[3] = up_point_x - 1;            // reset x location
+      ua_x[4] = up_point_x - 2;            // reset x location
+      ua_x[5] = up_point_x + 2;            // reset x location
+      ua_x[6] = up_point_x + 1;            // reset x location
+      ua_x[7] = up_point_x;                // reset x location
+      ua_x[8] = up_point_x - 1;            // reset x location
+      ua_x[9] = up_point_x - 2;            // reset x location
+    }
+    if (ua_y[2]==-4) {
+      zu = rand()%(100-0 + 1) + 0;
+      ua_y[0] = 18 + zu; // reset y location
+      ua_y[1] = 17 + zu; // reset y location
+      ua_y[2] = 16 + zu; // reset y location
+      ua_y[3] = 17 + zu; // reset y location
+      ua_y[4] = 18 + zu; // reset y location
+      ua_y[5] = 19 + zu; // reset y location
+      ua_y[6] = 18 + zu; // reset y location
+      ua_y[7] = 17 + zu; // reset y location
+      ua_y[8] = 18 + zu; // reset y location
+      ua_y[9] = 19 + zu; // reset y location
+
+      up_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      ua_x[0] = up_point_x + 2;              // reset x location
+      ua_x[1] = up_point_x + 1;              // reset x location
+      ua_x[2] = up_point_x;                  // reset x location
+      ua_x[3] = up_point_x - 1;              // reset x location
+      ua_x[4] = up_point_x - 2;              // reset x location
+      ua_x[5] = up_point_x + 2;              // reset x location
+      ua_x[6] = up_point_x + 1;              // reset x location
+      ua_x[7] = up_point_x;                  // reset x location
+      ua_x[8] = up_point_x - 1;              // reset x location
+      ua_x[9] = up_point_x - 2;              // reset x location
+    }
+    ua_y[0] = ua_y[0] - 1; //increment arrow up
+    ua_y[1] = ua_y[1] - 1; //increment arrow up
+    ua_y[2] = ua_y[2] - 1; //increment arrow up
+    ua_y[3] = ua_y[3] - 1; //increment arrow up
+    ua_y[4] = ua_y[4] - 1; //increment arrow up
+    ua_y[5] = ua_y[5] - 1; //increment arrow up
+    ua_y[6] = ua_y[6] - 1; //increment arrow up
+    ua_y[7] = ua_y[7] - 1; //increment arrow up
+    ua_y[8] = ua_y[8] - 1; //increment arrow up
+    ua_y[9] = ua_y[9] - 1; //increment arrow up
+
+
+    //~-~-~-~-~-~-~-~-~-Down Pointing Arrow~-~-~-~-~-~-~-~-~-
+    OutputArrows(da_x[0],da_x[1],da_x[2],da_x[3],da_x[4],da_x[5],da_x[6],da_x[7],da_x[8],da_x[9],da_y[0],da_y[1],da_y[2],da_y[3],da_y[4],da_y[5],da_y[6],da_y[7],da_y[8],da_y[9]); //output down pointing arrow
+    if ((x==da_x[0] && y==da_y[0]) || (x==da_x[1] && y==da_y[1]) || (x==da_x[2] && y==da_y[2]) || (x==da_x[3] && y==da_y[3]) || (x==da_x[4] && y==da_y[4]) || (x==da_x[5] && y==da_y[5]) || (x==da_x[6] && y==da_y[6]) || (x==da_x[7] && y==da_y[7]) || (x==da_x[8] && y==da_y[8]) || (x==da_x[9] && y==da_y[9])) {
+      matrix.clearScreen();
+      //health_bar--;
+      matrix.setRotation(0);
+      matrix.print("Hlth\n");
+      matrix.print(health_bar);
+      matrix.writeScreen();
+      delay(2000);
+      matrix.clearScreen();
+      healthdot_countdown = 100;
+      //taking code from stack overflow
+      //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+      healthdot_x = rand()%(23-0 + 1) + 0;
+      healthdot_y = rand()%(15-0 + 1) + 0;
+      /* reset x and y values of arrows, can use references in a function that also take in
+      parameters for how far back the arrows can start (where there will be some randomness).
+      The more health you have, the less far back the arrows can start and the game gets more
+      difficult. */
+      
+      /* 
+      // arrow pointing down
+      int down_point_x = rand()%(23-0 + 1) + 0;
+      int da_x[10] = {down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2,down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2};
+      int da_y[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
+      */
+      zd = rand()%(100-0 + 1) + 0;
+      da_y[0] = -3; // reset y location
+      da_y[1] = -2; // reset y location
+      da_y[2] = -1; // reset y location
+      da_y[3] = -2; // reset y location
+      da_y[4] = -3; // reset y location
+      da_y[5] = -4; // reset y location
+      da_y[6] = -3; // reset y location
+      da_y[7] = -2; // reset y location
+      da_y[8] = -3; // reset y location
+      da_y[9] = -4; // reset y location
+
+      down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      da_x[0] = down_point_x + 2;            // reset x location
+      da_x[1] = down_point_x + 1;            // reset x location
+      da_x[2] = down_point_x;                // reset x location
+      da_x[3] = down_point_x - 1;            // reset x location
+      da_x[4] = down_point_x - 2;            // reset x location
+      da_x[5] = down_point_x + 2;            // reset x location
+      da_x[6] = down_point_x + 1;            // reset x location
+      da_x[7] = down_point_x;                // reset x location
+      da_x[8] = down_point_x - 1;            // reset x location
+      da_x[9] = down_point_x - 2;            // reset x location
+    }
+    if (da_y[2]==19) {
+      da_y[0] = -3; // reset y location
+      da_y[1] = -2; // reset y location
+      da_y[2] = -1; // reset y location
+      da_y[3] = -2; // reset y location
+      da_y[4] = -3; // reset y location
+      da_y[5] = -4; // reset y location
+      da_y[6] = -3; // reset y location
+      da_y[7] = -2; // reset y location
+      da_y[8] = -3; // reset y location
+      da_y[9] = -4; // reset y location
+
+      down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      da_x[0] = down_point_x + 2;              // reset x location
+      da_x[1] = down_point_x + 1;              // reset x location
+      da_x[2] = down_point_x;                  // reset x location
+      da_x[3] = down_point_x - 1;              // reset x location
+      da_x[4] = down_point_x - 2;              // reset x location
+      da_x[5] = down_point_x + 2;              // reset x location
+      da_x[6] = down_point_x + 1;              // reset x location
+      da_x[7] = down_point_x;                  // reset x location
+      da_x[8] = down_point_x - 1;              // reset x location
+      da_x[9] = down_point_x - 2;              // reset x location
+    }
+    da_y[0] = da_y[0] + 1; //increment arrow down
+    da_y[1] = da_y[1] + 1; //increment arrow down
+    da_y[2] = da_y[2] + 1; //increment arrow down
+    da_y[3] = da_y[3] + 1; //increment arrow down
+    da_y[4] = da_y[4] + 1; //increment arrow down
+    da_y[5] = da_y[5] + 1; //increment arrow down
+    da_y[6] = da_y[6] + 1; //increment arrow down
+    da_y[7] = da_y[7] + 1; //increment arrow down
+    da_y[8] = da_y[8] + 1; //increment arrow down
+    da_y[9] = da_y[9] + 1; //increment arrow down
+    
+
     if (health_bar==0) {
       matrix.setRotation(0);
       matrix.clearScreen();
