@@ -522,16 +522,16 @@ void Game1() {
       int da_y[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
       */
       zd = rand()%(100-0 + 1) + 0;
-      da_y[0] = -3; // reset y location
-      da_y[1] = -2; // reset y location
-      da_y[2] = -1; // reset y location
-      da_y[3] = -2; // reset y location
-      da_y[4] = -3; // reset y location
-      da_y[5] = -4; // reset y location
-      da_y[6] = -3; // reset y location
-      da_y[7] = -2; // reset y location
-      da_y[8] = -3; // reset y location
-      da_y[9] = -4; // reset y location
+      da_y[0] = -3 - zd; // reset y location
+      da_y[1] = -2 - zd; // reset y location
+      da_y[2] = -1 - zd; // reset y location
+      da_y[3] = -2 - zd; // reset y location
+      da_y[4] = -3 - zd; // reset y location
+      da_y[5] = -4 - zd; // reset y location
+      da_y[6] = -3 - zd; // reset y location
+      da_y[7] = -2 - zd; // reset y location
+      da_y[8] = -3 - zd; // reset y location
+      da_y[9] = -4 - zd; // reset y location
 
       down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
       da_x[0] = down_point_x + 2;            // reset x location
@@ -546,16 +546,17 @@ void Game1() {
       da_x[9] = down_point_x - 2;            // reset x location
     }
     if (da_y[2]==19) {
-      da_y[0] = -3; // reset y location
-      da_y[1] = -2; // reset y location
-      da_y[2] = -1; // reset y location
-      da_y[3] = -2; // reset y location
-      da_y[4] = -3; // reset y location
-      da_y[5] = -4; // reset y location
-      da_y[6] = -3; // reset y location
-      da_y[7] = -2; // reset y location
-      da_y[8] = -3; // reset y location
-      da_y[9] = -4; // reset y location
+      zd = rand()%(100-0 + 1) + 0;
+      da_y[0] = -3 - zd; // reset y location
+      da_y[1] = -2 - zd; // reset y location
+      da_y[2] = -1 - zd; // reset y location
+      da_y[3] = -2 - zd; // reset y location
+      da_y[4] = -3 - zd; // reset y location
+      da_y[5] = -4 - zd; // reset y location
+      da_y[6] = -3 - zd; // reset y location
+      da_y[7] = -2 - zd; // reset y location
+      da_y[8] = -3 - zd; // reset y location
+      da_y[9] = -4 - zd; // reset y location
 
       down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
       da_x[0] = down_point_x + 2;              // reset x location
