@@ -157,10 +157,11 @@ void Game1() {
   int da_x[10] = {down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2,down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2};
   int da_y[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
 
-  int zr = rand()%(100-0 + 1) + 0;
-  int zl = rand()%(100-0 + 1) + 0;
-  int zu = rand()%(100-0 + 1) + 0;
-  int zd = rand()%(100-0 + 1) + 0;  
+  int zr = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from
+  int zl = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from
+  int zu = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from
+  int zd = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from 
+  int d = 100; //determines difficulty of game, the lower the value of d, the more difficult
 
   matrix.setRotation(0);
   matrix.clearScreen();
@@ -237,11 +238,14 @@ void Game1() {
     } 
     matrix.setPixel(x, y);
 
+    // Determine the difficulty of game
+    //if (points == 1)
+    
     //~-~-~-~-~-~-~-~-~-Right Pointing Arrow~-~-~-~-~-~-~-~-~-
     OutputArrows(ra_x[0],ra_x[1],ra_x[2],ra_x[3],ra_x[4],ra_x[5],ra_x[6],ra_x[7],ra_x[8],ra_x[9],ra_y[0],ra_y[1],ra_y[2],ra_y[3],ra_y[4],ra_y[5],ra_y[6],ra_y[7],ra_y[8],ra_y[9]); //output right pointing arrow
     if ((x==ra_x[0] && y==ra_y[0]) || (x==ra_x[1] && y==ra_y[1]) || (x==ra_x[2] && y==ra_y[2]) || (x==ra_x[3] && y==ra_y[3]) || (x==ra_x[4] && y==ra_y[4]) || (x==ra_x[5] && y==ra_y[5]) || (x==ra_x[6] && y==ra_y[6]) || (x==ra_x[7] && y==ra_y[7]) || (x==ra_x[8] && y==ra_y[8]) || (x==ra_x[9] && y==ra_y[9])) {
       matrix.clearScreen();
-      //health_bar--;
+      health_bar--;
       matrix.setRotation(0);
       matrix.print("Hlth\n");
       matrix.print(health_bar);
@@ -258,7 +262,7 @@ void Game1() {
       The more health you have, the less far back the arrows can start and the game gets more
       difficult.
       */
-      zr = rand()%(100-0 + 1) + 0;
+      zr = rand()%(d-0 + 1) + 0;
       ra_x[0] = -4 - zr; // reset x location
       ra_x[1] = -3 - zr; // reset x location
       ra_x[2] = -2 - zr; // reset x location
@@ -283,7 +287,7 @@ void Game1() {
       ra_y[9] = right_point_y - 2;            // reset y location
     }
     if (ra_x[2]==27) {
-      zr = rand()%(100-0 + 1) + 0;
+      zr = rand()%(d-0 + 1) + 0;
       ra_x[0] = -4 - zr; // reset x location
       ra_x[1] = -3 - zr; // reset x location
       ra_x[2] = -2 - zr; // reset x location
@@ -323,7 +327,7 @@ void Game1() {
     OutputArrows(la_x[0],la_x[1],la_x[2],la_x[3],la_x[4],la_x[5],la_x[6],la_x[7],la_x[8],la_x[9],la_y[0],la_y[1],la_y[2],la_y[3],la_y[4],la_y[5],la_y[6],la_y[7],la_y[8],la_y[9]); //output left pointing arrow
     if ((x==la_x[0] && y==la_y[0]) || (x==la_x[1] && y==la_y[1]) || (x==la_x[2] && y==la_y[2]) || (x==la_x[3] && y==la_y[3]) || (x==la_x[4] && y==la_y[4]) || (x==la_x[5] && y==la_y[5]) || (x==la_x[6] && y==la_y[6]) || (x==la_x[7] && y==la_y[7]) || (x==la_x[8] && y==la_y[8]) || (x==la_x[9] && y==la_y[9])) {
       matrix.clearScreen();
-      //health_bar--;
+      health_bar--;
       matrix.setRotation(0);
       matrix.print("Hlth\n");
       matrix.print(health_bar);
@@ -346,7 +350,7 @@ void Game1() {
       int la_x[10] = {26,25,24,25,26,27,26,25,26,27};
       int la_y[10] = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2,left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
       */
-      zl = rand()%(100-0 + 1) + 0;
+      zl = rand()%(d-0 + 1) + 0;
       la_x[0] = 27 + zl; // reset x location
       la_x[1] = 26 + zl; // reset x location
       la_x[2] = 25 + zl; // reset x location
@@ -371,7 +375,7 @@ void Game1() {
       la_y[9] = left_point_y - 2;            // reset y location
     }
     if (la_x[2]==-4) {
-      zl = rand()%(100-0 + 1) + 0;
+      zl = rand()%(d-0 + 1) + 0;
       la_x[0] = 27 + zl; // reset x location
       la_x[1] = 26 + zl; // reset x location
       la_x[2] = 25 + zl; // reset x location
@@ -410,7 +414,7 @@ void Game1() {
     OutputArrows(ua_x[0],ua_x[1],ua_x[2],ua_x[3],ua_x[4],ua_x[5],ua_x[6],ua_x[7],ua_x[8],ua_x[9],ua_y[0],ua_y[1],ua_y[2],ua_y[3],ua_y[4],ua_y[5],ua_y[6],ua_y[7],ua_y[8],ua_y[9]); //output up pointing arrow
     if ((x==ua_x[0] && y==ua_y[0]) || (x==ua_x[1] && y==ua_y[1]) || (x==ua_x[2] && y==ua_y[2]) || (x==ua_x[3] && y==ua_y[3]) || (x==ua_x[4] && y==ua_y[4]) || (x==ua_x[5] && y==ua_y[5]) || (x==ua_x[6] && y==ua_y[6]) || (x==ua_x[7] && y==ua_y[7]) || (x==ua_x[8] && y==ua_y[8]) || (x==ua_x[9] && y==ua_y[9])) {
       matrix.clearScreen();
-      //health_bar--;
+      health_bar--;
       matrix.setRotation(0);
       matrix.print("Hlth\n");
       matrix.print(health_bar);
@@ -433,7 +437,7 @@ void Game1() {
       int ua_x[10] = {up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2,up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2};
       int ua_y[10] = {18,17,16,17,18,19,18,17,18,19};
       */
-      zu = rand()%(100-0 + 1) + 0;
+      zu = rand()%(d-0 + 1) + 0;
       ua_y[0] = 18 + zu; // reset y location
       ua_y[1] = 17 + zu; // reset y location
       ua_y[2] = 16 + zu; // reset y location
@@ -458,7 +462,7 @@ void Game1() {
       ua_x[9] = up_point_x - 2;            // reset x location
     }
     if (ua_y[2]==-4) {
-      zu = rand()%(100-0 + 1) + 0;
+      zu = rand()%(d-0 + 1) + 0;
       ua_y[0] = 18 + zu; // reset y location
       ua_y[1] = 17 + zu; // reset y location
       ua_y[2] = 16 + zu; // reset y location
@@ -498,7 +502,7 @@ void Game1() {
     OutputArrows(da_x[0],da_x[1],da_x[2],da_x[3],da_x[4],da_x[5],da_x[6],da_x[7],da_x[8],da_x[9],da_y[0],da_y[1],da_y[2],da_y[3],da_y[4],da_y[5],da_y[6],da_y[7],da_y[8],da_y[9]); //output down pointing arrow
     if ((x==da_x[0] && y==da_y[0]) || (x==da_x[1] && y==da_y[1]) || (x==da_x[2] && y==da_y[2]) || (x==da_x[3] && y==da_y[3]) || (x==da_x[4] && y==da_y[4]) || (x==da_x[5] && y==da_y[5]) || (x==da_x[6] && y==da_y[6]) || (x==da_x[7] && y==da_y[7]) || (x==da_x[8] && y==da_y[8]) || (x==da_x[9] && y==da_y[9])) {
       matrix.clearScreen();
-      //health_bar--;
+      health_bar--;
       matrix.setRotation(0);
       matrix.print("Hlth\n");
       matrix.print(health_bar);
@@ -521,7 +525,7 @@ void Game1() {
       int da_x[10] = {down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2,down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2};
       int da_y[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
       */
-      zd = rand()%(100-0 + 1) + 0;
+      zd = rand()%(d-0 + 1) + 0;
       da_y[0] = -3 - zd; // reset y location
       da_y[1] = -2 - zd; // reset y location
       da_y[2] = -1 - zd; // reset y location
@@ -546,7 +550,7 @@ void Game1() {
       da_x[9] = down_point_x - 2;            // reset x location
     }
     if (da_y[2]==19) {
-      zd = rand()%(100-0 + 1) + 0;
+      zd = rand()%(d-0 + 1) + 0;
       da_y[0] = -3 - zd; // reset y location
       da_y[1] = -2 - zd; // reset y location
       da_y[2] = -1 - zd; // reset y location
