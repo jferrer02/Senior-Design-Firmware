@@ -2,8 +2,16 @@
 #define HT_DATA 3
 #define HT_WR   4
 #define HT_CS   5
+#define maze_length 24
+#define maze_width 16
 int button_1 = 11;
 int button_2 = 12;
+
+int x=1;
+int y=1;
+
+// use this line for single matrix
+Adafruit_HT1632LEDMatrix matrix = Adafruit_HT1632LEDMatrix(HT_DATA, HT_WR, HT_CS);
 
 //button values
 int b_1 = 0;
@@ -13,12 +21,29 @@ int b_2 = 0;
 int X = 0;  // variable to store the value read
 int Y = 0;  // variable to store the value read
 
+//matrix values of maze
+int maze[maze_width][maze_length] = {
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1},
+{1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1 ,1},
+{1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1 ,1},
+{1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1 ,1},
+{1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1 ,1},
+{1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 ,1},
+{1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1},
+{1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 ,1},
+{1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1 ,1},
+{1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1 ,1},
+{1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1 ,1},
+{1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 ,1},
+{1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1 ,1},
+{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1 ,1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1 ,1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1 ,1},  
+};
+
 //menu variables
 int menu_val = 0;
 int menu_sel = 0;
-
-// use this line for single matrix
-Adafruit_HT1632LEDMatrix matrix = Adafruit_HT1632LEDMatrix(HT_DATA, HT_WR, HT_CS);
 
 void setup() {
   pinMode(button_1, INPUT);
@@ -30,65 +55,16 @@ void setup() {
   matrix.clearScreen();
   matrix.setTextWrap(false);
 }
-
+/*
 void testcomponents();
 void Game1();
 void OutputArrows();
-
-void loop() {
-  matrix.setRotation(0);
-  matrix.clearScreen();
-  matrix.setCursor(0, 0);
-  b_1 = digitalRead(button_1);
-  b_2 = digitalRead(button_2);
-  X = analogRead(A0);  // read the A0 input pin
-  Y = analogRead(A1);  // read the A1 input pin 
-  if (X > 700) {
-    menu_val++;
-    if (menu_val > 1) {
-      menu_val = 0;
-    }
-  }
-  
-  if (X < 300) {
-    menu_val--;
-    if (menu_val < 0) {
-      menu_val = 1;
-    }
-  }
-  
-  if (b_1 == LOW) {
-    menu_sel = 1;
-  }
-  else {
-    menu_sel = 0;
-  }
-  matrix.print("Menu\n"); //print menu at top of screen
-  if (menu_val == 0) {
-    matrix.print("Comp");
-    if (menu_sel == 1) {
-      matrix.clearScreen();
-      matrix.setCursor(0, 0);
-      matrix.print("Test\nComp");
-      matrix.writeScreen();
-      delay(5000);
-      testcomponents();
-    }
-  }
-  if (menu_val == 1) {
-    matrix.print("Game");
-    if (menu_sel == 1) {
-      matrix.clearScreen();
-      matrix.setCursor(0, 0);
-      matrix.print("Play\nGame");
-      matrix.writeScreen();
-      delay(5000);
-      Game1();
-    }
-  }
-  matrix.writeScreen();
-  delay(250);
-}
+void Maze();
+void displaymaze();
+void moveDot();
+void Maze();
+bool checkvalid();
+*/
 
 void testcomponents() {
   int i = 0;
@@ -180,11 +156,11 @@ void Game1() {
     matrix.setCursor(0, 0);  
     if ((x == healthdot_x) && (y == healthdot_y)) {
       health_bar++;
-      matrix.setRotation(0);
-      matrix.print("Hlth\n");
-      matrix.print(health_bar);
-      matrix.writeScreen();
-      delay(2000);
+      //matrix.setRotation(0);
+      //matrix.print("Hlth\n");
+      //matrix.print(health_bar);
+      //matrix.writeScreen();
+      //delay(500);
       matrix.clearScreen();
       healthdot_countdown = 100;
       //taking code from stack overflow
@@ -614,4 +590,164 @@ void OutputArrows(int x0,int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8
   matrix.setPixel(x7,y7);
   matrix.setPixel(x8,y8);
   matrix.setPixel(x9,y9);
+}
+
+void Maze() {
+  int r = 0;
+  while (r < 1) {
+    matrix.writeScreen();
+    displaymaze();
+    moveDot();
+    delay(100);
+    if(x == 21 and y == 15) {
+      matrix.clearScreen();
+      matrix.setCursor(1, 1);
+      matrix.setRotation(0);
+      matrix.print("You Win!");
+      matrix.writeScreen();
+      delay(5000);
+      x = 1;
+      y = 1;
+      matrix.clearScreen();    
+  }
+  }
+}
+
+void moveDot() {
+
+  int r = 0; //for while loop
+  //while (r < 1) {
+    X = analogRead(A0);  // read the A0 input pin
+    Y = analogRead(A1);  // read the A1 input pin
+    //Read input from joystick and check if position ahead is a wall
+    //Move only if it isn't a wall
+    //Right 
+    if (X > 750 && abs(Y) < 650 && checkvalid(x+1,y) ) {
+      //x--;
+      x++;
+    }
+    //Left
+    else if (X < 250 && abs(Y) < 650 && checkvalid(x-1,y) ) {
+      //x++;
+      x--;
+    }
+    //Up
+    else if (Y > 750 && abs(X) < 650 && checkvalid(x,y-1) ) {
+      //y++;
+      y--;
+    }
+    //Down
+    else if (Y < 250 && abs(X) < 650 && checkvalid(x,y+1) ) {
+      //y--;
+      y++;
+    }
+    //Out of bound check
+    if (x <= 0) {
+      x = 0;
+    }    
+    if (y <= 0) {
+      y = 0;
+    }
+    if (x >= 24) {
+      x = 23;
+    }   
+    if (y >= 16) {
+      y = 15;
+    } 
+    matrix.setPixel(x, y);
+    
+    matrix.writeScreen();
+    matrix.clrPixel(x, y);
+    
+  //}
+}
+
+void displaymaze() {    
+  for (int y = 0; y < maze_width; y++)  {
+    for (int x = 0; x < maze_length; x++) {
+        if (maze[y][x] == 1) {
+          matrix.setPixel(x, y);
+      }
+    }        
+  }
+}
+
+bool checkvalid(int x, int y) {
+  Serial.print("Checking position: ");
+  Serial.print(x);
+  Serial.print(",");
+  Serial.println(y);
+    
+  if(maze[y][x] == 1) {
+    Serial.println("Is a wall"); 
+    return false;
+  }
+  Serial.println("Open path");
+  return true;  
+}
+
+void loop() {
+  matrix.setRotation(0);
+  matrix.clearScreen();
+  matrix.setCursor(0, 0);
+  b_1 = digitalRead(button_1);
+  b_2 = digitalRead(button_2);
+  X = analogRead(A0);  // read the A0 input pin
+  Y = analogRead(A1);  // read the A1 input pin 
+  if (X > 700) {
+    menu_val++;
+    if (menu_val > 2) {
+      menu_val = 2;
+    }
+  }
+  
+  if (X < 300) {
+    menu_val--;
+    if (menu_val < 0) {
+      menu_val = 0;
+    }
+  }
+  
+  if (b_1 == LOW) {
+    menu_sel = 1;
+  }
+  else {
+    menu_sel = 0;
+  }
+  matrix.print("Menu\n"); //print menu at top of screen
+  if (menu_val == 0) {
+    matrix.print("Comp");
+    if (menu_sel == 1) {
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("Test\nComp");
+      matrix.writeScreen();
+      delay(5000);
+      testcomponents();
+    }
+  }
+  if (menu_val == 1) {
+    matrix.print("Game");
+    if (menu_sel == 1) {
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("Play\nGame");
+      matrix.writeScreen();
+      delay(5000);
+      Game1();
+    }
+  }
+  if (menu_val == 2) {
+    matrix.print("Maze");
+    if (menu_sel == 1) {
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("Maze\nGame");
+      matrix.writeScreen();
+      delay(5000);
+      Maze();
+    }
+  }
+  matrix.writeScreen();
+  delay(250);
 }
