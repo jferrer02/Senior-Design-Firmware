@@ -113,9 +113,15 @@ void Game1() {
   //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
   int pointsdot_x = rand()%(23-0 + 1) + 0;
   int pointsdot_y = rand()%(15-0 + 1) + 0;
-  int pointsdot_countdown = 100; // a countdown for the health dot to go away
-  int points_counter = 1; //player's point, win if reaches certain amount and game gets harder as points are added
-  int health_bar = 5; //player's health, lose if reaches 0
+  int pointsdot_countdown = 30; // a countdown for the point dot to go away
+  int points_counter = 0; //player's point, win if reaches certain amount and game gets harder as points are added
+  int health_bar = 3; //player's health, lose if reaches 0
+
+  int healthdot_x = rand()%(23-0 + 1) + 0;
+  int healthdot_y = rand()%(15-0 + 1) + 0;
+  int healthbar_countdown = 100;
+  int health_max = 5;
+
   // arrow pointing to the right
   int right_point_y = rand()%(15-0 + 1) + 0;
   int ra_x[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
@@ -138,12 +144,22 @@ void Game1() {
   int zu = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from
   int zd = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from 
   int d = 100; //determines difficulty of game, the lower the value of d, the more difficult
+  
+  //print points
+  matrix.setRotation(0);
+  matrix.clearScreen();
+  matrix.setCursor(0, 0); 
+  matrix.print("Pts:\n");
+  matrix.print(points_counter);
+  matrix.writeScreen();
+  delay(2000); 
 
+  //print health
   matrix.setRotation(0);
   matrix.clearScreen();
   matrix.setCursor(0, 0); 
   matrix.print("Hlth\n");
-  matrix.print(points_counter);
+  matrix.print(health_bar);
   matrix.writeScreen();
   delay(2000);  
   while (r < 1) {
@@ -156,36 +172,50 @@ void Game1() {
     matrix.setCursor(0, 0);  
     if ((x == pointsdot_x) && (y == pointsdot_y)) {
       points_counter++;
-      //matrix.setRotation(0);
-      //matrix.print("Hlth\n");
-      //matrix.print(health_bar);
-      //matrix.writeScreen();
-      //delay(500);
       matrix.clearScreen();
-      pointsdot_countdown = 100;
+      pointsdot_countdown = 30;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
       pointsdot_y = rand()%(15-0 + 1) + 0;
-
-      //~~~~~~~~~~~~~~~~~~~~~~~~~
-
-      // reset arrows as well!!!
-
-      //~~~~~~~~~~~~~~~~~~~~~~~~~
-
     }
     else if (pointsdot_countdown > 0) {
       matrix.setPixel(pointsdot_x, pointsdot_y);
     } 
     else {
-      pointsdot_countdown = 100;
+      pointsdot_countdown = 30;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
       pointsdot_y = rand()%(15-0 + 1) + 0;
     }
     pointsdot_countdown--;
+
+
+    if ((x == healthdot_x) && (y == healthdot_y)) {
+      health_bar++;
+      matrix.clearScreen();
+      if (health_bar < health_max) {
+        healthbar_countdown = 100;
+        //taking code from stack overflow
+        //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+        healthdot_x = rand()%(23-0 + 1) + 0;
+        healthdot_y = rand()%(15-0 + 1) + 0;
+      }
+    }
+    else if (healthbar_countdown > 0) {
+      matrix.setPixel(healthdot_x, healthdot_y);
+    } 
+    else {
+      if (health_bar < health_max) {
+        healthbar_countdown = 100;
+        //taking code from stack overflow
+        //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
+        healthdot_x = rand()%(23-0 + 1) + 0;
+        healthdot_y = rand()%(15-0 + 1) + 0;
+      }
+    }
+    healthbar_countdown--;
     
     // move dot with joystick and keep it within bounds 
     if (X > 650) {
@@ -213,9 +243,6 @@ void Game1() {
       y = 15;
     } 
     matrix.setPixel(x, y);
-
-    // Determine the difficulty of game
-    //if (points == 1)
     
     //~-~-~-~-~-~-~-~-~-Right Pointing Arrow~-~-~-~-~-~-~-~-~-
     OutputArrows(ra_x[0],ra_x[1],ra_x[2],ra_x[3],ra_x[4],ra_x[5],ra_x[6],ra_x[7],ra_x[8],ra_x[9],ra_y[0],ra_y[1],ra_y[2],ra_y[3],ra_y[4],ra_y[5],ra_y[6],ra_y[7],ra_y[8],ra_y[9]); //output right pointing arrow
@@ -228,7 +255,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 100;
+      pointsdot_countdown = 30;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -310,7 +337,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 100;
+      pointsdot_countdown = 30;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -397,7 +424,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 100;
+      pointsdot_countdown = 30;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -485,7 +512,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 100;
+      pointsdot_countdown = 30;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -561,6 +588,9 @@ void Game1() {
     da_y[8] = da_y[8] + 1; //increment arrow down
     da_y[9] = da_y[9] + 1; //increment arrow down
     
+    // determine difficulty of game
+    d = 100 - points_counter*points_counter - 18;
+
     if (health_bar==0) {
       matrix.setRotation(0);
       matrix.clearScreen();
