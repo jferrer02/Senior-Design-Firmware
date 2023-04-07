@@ -111,11 +111,11 @@ void Game1() {
   int r = 0; //for while loop
   //taking code from stack overflow
   //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-  int healthdot_x = rand()%(23-0 + 1) + 0;
-  int healthdot_y = rand()%(15-0 + 1) + 0;
-  int healthdot_countdown = 100; // a countdown for the health dot to go away
-  int health_bar = 1; //players health, lose if reaches 0
-  
+  int pointsdot_x = rand()%(23-0 + 1) + 0;
+  int pointsdot_y = rand()%(15-0 + 1) + 0;
+  int pointsdot_countdown = 100; // a countdown for the health dot to go away
+  int points_counter = 1; //player's point, win if reaches certain amount and game gets harder as points are added
+  int health_bar = 5; //player's health, lose if reaches 0
   // arrow pointing to the right
   int right_point_y = rand()%(15-0 + 1) + 0;
   int ra_x[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
@@ -143,7 +143,7 @@ void Game1() {
   matrix.clearScreen();
   matrix.setCursor(0, 0); 
   matrix.print("Hlth\n");
-  matrix.print(health_bar);
+  matrix.print(points_counter);
   matrix.writeScreen();
   delay(2000);  
   while (r < 1) {
@@ -154,19 +154,19 @@ void Game1() {
     matrix.setRotation(0);
     matrix.clearScreen();
     matrix.setCursor(0, 0);  
-    if ((x == healthdot_x) && (y == healthdot_y)) {
-      health_bar++;
+    if ((x == pointsdot_x) && (y == pointsdot_y)) {
+      points_counter++;
       //matrix.setRotation(0);
       //matrix.print("Hlth\n");
       //matrix.print(health_bar);
       //matrix.writeScreen();
       //delay(500);
       matrix.clearScreen();
-      healthdot_countdown = 100;
+      pointsdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      healthdot_x = rand()%(23-0 + 1) + 0;
-      healthdot_y = rand()%(15-0 + 1) + 0;
+      pointsdot_x = rand()%(23-0 + 1) + 0;
+      pointsdot_y = rand()%(15-0 + 1) + 0;
 
       //~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -175,17 +175,17 @@ void Game1() {
       //~~~~~~~~~~~~~~~~~~~~~~~~~
 
     }
-    else if (healthdot_countdown > 0) {
-      matrix.setPixel(healthdot_x, healthdot_y);
+    else if (pointsdot_countdown > 0) {
+      matrix.setPixel(pointsdot_x, pointsdot_y);
     } 
     else {
-      healthdot_countdown = 100;
+      pointsdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      healthdot_x = rand()%(23-0 + 1) + 0;
-      healthdot_y = rand()%(15-0 + 1) + 0;
+      pointsdot_x = rand()%(23-0 + 1) + 0;
+      pointsdot_y = rand()%(15-0 + 1) + 0;
     }
-    healthdot_countdown--;
+    pointsdot_countdown--;
     
     // move dot with joystick and keep it within bounds 
     if (X > 650) {
@@ -228,11 +228,11 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      healthdot_countdown = 100;
+      pointsdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      healthdot_x = rand()%(23-0 + 1) + 0;
-      healthdot_y = rand()%(15-0 + 1) + 0;
+      pointsdot_x = rand()%(23-0 + 1) + 0;
+      pointsdot_y = rand()%(15-0 + 1) + 0;
       /* reset x and y values of arrows, can use references in a function that also take in
       parameters for how far back the arrows can start (where there will be some randomness).
       The more health you have, the less far back the arrows can start and the game gets more
@@ -310,11 +310,11 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      healthdot_countdown = 100;
+      pointsdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      healthdot_x = rand()%(23-0 + 1) + 0;
-      healthdot_y = rand()%(15-0 + 1) + 0;
+      pointsdot_x = rand()%(23-0 + 1) + 0;
+      pointsdot_y = rand()%(15-0 + 1) + 0;
       /* reset x and y values of arrows, can use references in a function that also take in
       parameters for how far back the arrows can start (where there will be some randomness).
       The more health you have, the less far back the arrows can start and the game gets more
@@ -397,11 +397,11 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      healthdot_countdown = 100;
+      pointsdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      healthdot_x = rand()%(23-0 + 1) + 0;
-      healthdot_y = rand()%(15-0 + 1) + 0;
+      pointsdot_x = rand()%(23-0 + 1) + 0;
+      pointsdot_y = rand()%(15-0 + 1) + 0;
       /* reset x and y values of arrows, can use references in a function that also take in
       parameters for how far back the arrows can start (where there will be some randomness).
       The more health you have, the less far back the arrows can start and the game gets more
@@ -485,11 +485,11 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      healthdot_countdown = 100;
+      pointsdot_countdown = 100;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
-      healthdot_x = rand()%(23-0 + 1) + 0;
-      healthdot_y = rand()%(15-0 + 1) + 0;
+      pointsdot_x = rand()%(23-0 + 1) + 0;
+      pointsdot_y = rand()%(15-0 + 1) + 0;
       /* reset x and y values of arrows, can use references in a function that also take in
       parameters for how far back the arrows can start (where there will be some randomness).
       The more health you have, the less far back the arrows can start and the game gets more
@@ -561,7 +561,6 @@ void Game1() {
     da_y[8] = da_y[8] + 1; //increment arrow down
     da_y[9] = da_y[9] + 1; //increment arrow down
     
-
     if (health_bar==0) {
       matrix.setRotation(0);
       matrix.clearScreen();
@@ -571,6 +570,17 @@ void Game1() {
       delay(5000);
       break;
     }
+
+    if (points_counter==10) {
+      matrix.setRotation(0);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0); 
+      matrix.print("You\nWin!");
+      matrix.writeScreen();
+      delay(5000);
+      break;  
+    }
+    
     matrix.writeScreen();
     if (b_1 == LOW) {
       break;
