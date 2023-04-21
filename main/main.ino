@@ -1,4 +1,5 @@
 #include "Adafruit_HT1632.h"
+#include "MemoryFree.h"
 #define HT_DATA 3
 #define HT_WR   4
 #define HT_CS   5
@@ -635,6 +636,10 @@ void OutputArrows(int x0,int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8
 void Maze() {
   int r = 0;
   while (r < 1) {
+    
+    Serial.print("freeMemory()=");
+    Serial.println(freeMemory());
+
     matrix.writeScreen();
     displaymaze();
     moveDot();
@@ -643,7 +648,7 @@ void Maze() {
       matrix.clearScreen();
       matrix.setCursor(1, 1);
       matrix.setRotation(0);
-      matrix.print("You Win!");
+      matrix.print("You \nWin!");
       matrix.writeScreen();
       delay(5000);
       x = 1;
@@ -663,22 +668,18 @@ void moveDot() {
     //Move only if it isn't a wall
     //Right 
     if (X > 750 && abs(Y) < 650 && checkvalid(x+1,y) ) {
-      //x--;
       x++;
     }
     //Left
     else if (X < 250 && abs(Y) < 650 && checkvalid(x-1,y) ) {
-      //x++;
       x--;
     }
     //Up
     else if (Y > 750 && abs(X) < 650 && checkvalid(x,y-1) ) {
-      //y++;
       y--;
     }
     //Down
     else if (Y < 250 && abs(X) < 650 && checkvalid(x,y+1) ) {
-      //y--;
       y++;
     }
     //Out of bound check
@@ -695,7 +696,6 @@ void moveDot() {
       y = 15;
     } 
     matrix.setPixel(x, y);
-    
     matrix.writeScreen();
     matrix.clrPixel(x, y);
     
@@ -703,8 +703,8 @@ void moveDot() {
 }
 
 void displaymaze() {    
-  for (int y = 0; y < maze_width; y++)  {
-    for (int x = 0; x < maze_length; x++) {
+  for (int y = 0; y < maze_width; y++) {
+    for (int x = 0; x < maze_length; x++){
         if (maze[y][x] == 1) {
           matrix.setPixel(x, y);
       }
@@ -713,16 +713,16 @@ void displaymaze() {
 }
 
 bool checkvalid(int x, int y) {
-  Serial.print("Checking position: ");
-  Serial.print(x);
-  Serial.print(",");
-  Serial.println(y);
+  // Serial.print("Checking position: ");
+  // Serial.print(x);
+  // Serial.print(",");
+  // Serial.println(y);
     
   if(maze[y][x] == 1) {
-    Serial.println("Is a wall"); 
+    //Serial.println("Is a wall"); 
     return false;
   }
-  Serial.println("Open path");
+  //Serial.println("Open path");
   return true;  
 }
 
@@ -785,6 +785,7 @@ void loop() {
       matrix.print("Maze\nGame");
       matrix.writeScreen();
       delay(5000);
+      matrix.clearScreen();
       Maze();
     }
   }
