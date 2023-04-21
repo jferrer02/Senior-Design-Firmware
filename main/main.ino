@@ -43,7 +43,7 @@ int maze[maze_width][maze_length] = {
 };
 
 //menu variables
-int menu_val = 0;
+int menu_val = 1;
 int menu_sel = 0;
 
 void setup() {
@@ -613,7 +613,7 @@ void Game1() {
     }
     
     matrix.writeScreen();
-    if (b_1 == LOW) {
+    if (b_2 == LOW) {
       break;
     }
     delay(50); 
@@ -636,10 +636,12 @@ void OutputArrows(int x0,int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8
 void Maze() {
   int r = 0;
   while (r < 1) {
-    
-    Serial.print("freeMemory()=");
-    Serial.println(freeMemory());
-
+    b_2 = digitalRead(button_2);
+    //Serial.print("freeMemory()=");
+    //Serial.println(freeMemory());
+    if (b_2 == LOW) {
+      r++;
+    }
     matrix.writeScreen();
     displaymaze();
     moveDot();
@@ -654,7 +656,9 @@ void Maze() {
       x = 1;
       y = 1;
       matrix.clearScreen();    
-  }
+      break;
+    }
+  delay(50); 
   }
 }
 
@@ -743,8 +747,8 @@ void loop() {
   
   if (X < 300) {
     menu_val--;
-    if (menu_val < 0) {
-      menu_val = 0;
+    if (menu_val < 1) {
+      menu_val = 1;
     }
   }
   
@@ -755,7 +759,7 @@ void loop() {
     menu_sel = 0;
   }
   matrix.print("Menu\n"); //print menu at top of screen
-  if (menu_val == 0) {
+  /*if (menu_val == 0) {
     matrix.print("Comp");
     if (menu_sel == 1) {
       matrix.clearScreen();
@@ -765,7 +769,7 @@ void loop() {
       delay(5000);
       testcomponents();
     }
-  }
+  }*/
   if (menu_val == 1) {
     matrix.print("Game");
     if (menu_sel == 1) {
