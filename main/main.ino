@@ -191,7 +191,7 @@ void Game1() {
     }
     pointsdot_countdown--;
 
-
+    // this part needs to be changed!!!
     if ((x == healthdot_x) && (y == healthdot_y)) {
       health_bar++;
       matrix.clearScreen();
@@ -203,7 +203,7 @@ void Game1() {
         healthdot_y = rand()%(15-0 + 1) + 0;
       }
     }
-    else if (healthbar_countdown > 0) {
+    else if (health_bar >= health_max) {
       matrix.setPixel(healthdot_x, healthdot_y);
     } 
     else {
