@@ -55,16 +55,6 @@ void setup() {
   matrix.clearScreen();
   matrix.setTextWrap(false);
 }
-/*
-void testcomponents();
-void Game1();
-void OutputArrows();
-void Maze();
-void displaymaze();
-void moveDot();
-void Maze();
-bool checkvalid();
-*/
 
 void testcomponents() {
   int i = 0;
@@ -105,7 +95,6 @@ void testcomponents() {
 }
 
 void Game1() {
-  // adding a comment for the sake of merging
   int x = 10;
   int y = 8;
   int r = 0; //for while loop
@@ -113,7 +102,7 @@ void Game1() {
   //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
   int pointsdot_x = rand()%(23-0 + 1) + 0;
   int pointsdot_y = rand()%(15-0 + 1) + 0;
-  int pointsdot_countdown = 30; // a countdown for the point dot to go away
+  int pointsdot_countdown = 50; // a countdown for the point dot to go away
   int points_counter = 0; //player's point, win if reaches certain amount and game gets harder as points are added
   int health_bar = 3; //player's health, lose if reaches 0
 
@@ -122,28 +111,29 @@ void Game1() {
   int healthbar_countdown = 100;
   int health_max = 5;
 
+
+  int d = 100; //determines difficulty of game, the lower the value of d, the more difficult
+  int zr = rand()%(d-0 + 1) + 0; //range of random values where arrow can start from
+  int zl = rand()%(d-0 + 1) + 0; //range of random values where arrow can start from
+  int zu = rand()%(d-0 + 1) + 0; //range of random values where arrow can start from
+  int zd = rand()%(d-0 + 1) + 0; //range of random values where arrow can start from
+
   // arrow pointing to the right
   int right_point_y = rand()%(15-0 + 1) + 0;
-  int ra_x[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
+  int ra_x[10] = {-3-zr,-2-zr,-1-zr,-2-zr,-3-zr,-4-zr,-3-zr,-2-zr,-3-zr,-4-zr};
   int ra_y[10] = {right_point_y+2,right_point_y+1,right_point_y,right_point_y-1,right_point_y-2,right_point_y+2,right_point_y+1,right_point_y,right_point_y-1,right_point_y-2};
   // arrow pointing to the left
   int left_point_y = rand()%(15-0 + 1) + 0;
-  int la_x[10] = {26,25,24,25,26,27,26,25,26,27};
+  int la_x[10] = {26+zl,25+zl,24+zl,25+zl,26+zl,27+zl,26+zl,25+zl,26+zl,27+zl};
   int la_y[10] = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2,left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
   // arrow pointing up
   int up_point_x = rand()%(23-0 + 1) + 0;
   int ua_x[10] = {up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2,up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2};
-  int ua_y[10] = {18,17,16,17,18,19,18,17,18,19};
+  int ua_y[10] = {18+zu,17+zu,16+zu,17+zu,18+zu,19+zu,18+zu,17+zu,18+zu,19+zu};
   // arrow pointing down
   int down_point_x = rand()%(23-0 + 1) + 0;
   int da_x[10] = {down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2,down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2};
-  int da_y[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
-
-  int zr = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from
-  int zl = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from
-  int zu = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from
-  int zd = rand()%(100-0 + 1) + 0; //range of random values where arrow can start from 
-  int d = 100; //determines difficulty of game, the lower the value of d, the more difficult
+  int da_y[10] = {-3-zd,-2-zd,-1-zd,-2-zd,-3-zd,-4-zd,-3-zd,-2-zd,-3-zd,-4-zd};
   
   //print points
   matrix.setRotation(0);
@@ -171,26 +161,25 @@ void Game1() {
     matrix.clearScreen();
     matrix.setCursor(0, 0);  
     if ((x == pointsdot_x) && (y == pointsdot_y)) {
-      points_counter++;
+      if (health_bar < health_max) {health_bar++;}
+      else {points_counter++;}
       matrix.clearScreen();
-      pointsdot_countdown = 30;
+      pointsdot_countdown = 50;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
       pointsdot_y = rand()%(15-0 + 1) + 0;
     }
-    else if (pointsdot_countdown > 0) {
-      matrix.setPixel(pointsdot_x, pointsdot_y);
-    } 
+    else if (pointsdot_countdown > 0) {matrix.setPixel(pointsdot_x, pointsdot_y);} 
     else {
-      pointsdot_countdown = 30;
+      pointsdot_countdown = 50;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
       pointsdot_y = rand()%(15-0 + 1) + 0;
     }
     pointsdot_countdown--;
-
+/*
     // this part needs to be changed!!!
     if ((x == healthdot_x) && (y == healthdot_y)) {
       health_bar++;
@@ -216,6 +205,7 @@ void Game1() {
       }
     }
     healthbar_countdown--;
+*/
     
     // move dot with joystick and keep it within bounds 
     if (X > 650) {
@@ -255,7 +245,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 30;
+      pointsdot_countdown = 50;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -276,7 +266,6 @@ void Game1() {
       ra_x[7] = -3 - zr; // reset x location
       ra_x[8] = -4 - zr; // reset x location
       ra_x[9] = -5 - zr; // reset x location
-
       right_point_y = rand()%(15-0 + 1) + 0;  // new random y value
       ra_y[0] = right_point_y + 2;            // reset y location
       ra_y[1] = right_point_y + 1;            // reset y location
@@ -288,6 +277,75 @@ void Game1() {
       ra_y[7] = right_point_y;                // reset y location
       ra_y[8] = right_point_y - 1;            // reset y location
       ra_y[9] = right_point_y - 2;            // reset y location
+
+      zl = rand()%(d-0 + 1) + 0;
+      la_x[0] = 27 + zl; // reset x location
+      la_x[1] = 26 + zl; // reset x location
+      la_x[2] = 25 + zl; // reset x location
+      la_x[3] = 26 + zl; // reset x location
+      la_x[4] = 27 + zl; // reset x location
+      la_x[5] = 28 + zl; // reset x location
+      la_x[6] = 27 + zl; // reset x location
+      la_x[7] = 26 + zl; // reset x location
+      la_x[8] = 27 + zl; // reset x location
+      la_x[9] = 28 + zl; // reset x location
+      left_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      la_y[0] = left_point_y + 2;            // reset y location
+      la_y[1] = left_point_y + 1;            // reset y location
+      la_y[2] = left_point_y;                // reset y location
+      la_y[3] = left_point_y - 1;            // reset y location
+      la_y[4] = left_point_y - 2;            // reset y location
+      la_y[5] = left_point_y + 2;            // reset y location
+      la_y[6] = left_point_y + 1;            // reset y location
+      la_y[7] = left_point_y;                // reset y location
+      la_y[8] = left_point_y - 1;            // reset y location
+      la_y[9] = left_point_y - 2;            // reset y location
+
+      zu = rand()%(d-0 + 1) + 0;
+      ua_y[0] = 18 + zu; // reset y location
+      ua_y[1] = 17 + zu; // reset y location
+      ua_y[2] = 16 + zu; // reset y location
+      ua_y[3] = 17 + zu; // reset y location
+      ua_y[4] = 18 + zu; // reset y location
+      ua_y[5] = 19 + zu; // reset y location
+      ua_y[6] = 18 + zu; // reset y location
+      ua_y[7] = 17 + zu; // reset y location
+      ua_y[8] = 18 + zu; // reset y location
+      ua_y[9] = 19 + zu; // reset y location
+      up_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      ua_x[0] = up_point_x + 2;            // reset x location
+      ua_x[1] = up_point_x + 1;            // reset x location
+      ua_x[2] = up_point_x;                // reset x location
+      ua_x[3] = up_point_x - 1;            // reset x location
+      ua_x[4] = up_point_x - 2;            // reset x location
+      ua_x[5] = up_point_x + 2;            // reset x location
+      ua_x[6] = up_point_x + 1;            // reset x location
+      ua_x[7] = up_point_x;                // reset x location
+      ua_x[8] = up_point_x - 1;            // reset x location
+      ua_x[9] = up_point_x - 2;            // reset x location
+
+      zd = rand()%(d-0 + 1) + 0;
+      da_y[0] = -3 - zd; // reset y location
+      da_y[1] = -2 - zd; // reset y location
+      da_y[2] = -1 - zd; // reset y location
+      da_y[3] = -2 - zd; // reset y location
+      da_y[4] = -3 - zd; // reset y location
+      da_y[5] = -4 - zd; // reset y location
+      da_y[6] = -3 - zd; // reset y location
+      da_y[7] = -2 - zd; // reset y location
+      da_y[8] = -3 - zd; // reset y location
+      da_y[9] = -4 - zd; // reset y location
+      down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      da_x[0] = down_point_x + 2;            // reset x location
+      da_x[1] = down_point_x + 1;            // reset x location
+      da_x[2] = down_point_x;                // reset x location
+      da_x[3] = down_point_x - 1;            // reset x location
+      da_x[4] = down_point_x - 2;            // reset x location
+      da_x[5] = down_point_x + 2;            // reset x location
+      da_x[6] = down_point_x + 1;            // reset x location
+      da_x[7] = down_point_x;                // reset x location
+      da_x[8] = down_point_x - 1;            // reset x location
+      da_x[9] = down_point_x - 2;            // reset x location
     }
     if (ra_x[2]==27) {
       zr = rand()%(d-0 + 1) + 0;
@@ -337,7 +395,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 30;
+      pointsdot_countdown = 50;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -353,6 +411,29 @@ void Game1() {
       int la_x[10] = {26,25,24,25,26,27,26,25,26,27};
       int la_y[10] = {left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2,left_point_y+2,left_point_y+1,left_point_y,left_point_y-1,left_point_y-2};
       */
+      zr = rand()%(d-0 + 1) + 0;
+      ra_x[0] = -4 - zr; // reset x location
+      ra_x[1] = -3 - zr; // reset x location
+      ra_x[2] = -2 - zr; // reset x location
+      ra_x[3] = -3 - zr; // reset x location
+      ra_x[4] = -4 - zr; // reset x location
+      ra_x[5] = -5 - zr; // reset x location
+      ra_x[6] = -4 - zr; // reset x location
+      ra_x[7] = -3 - zr; // reset x location
+      ra_x[8] = -4 - zr; // reset x location
+      ra_x[9] = -5 - zr; // reset x location
+      right_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      ra_y[0] = right_point_y + 2;            // reset y location
+      ra_y[1] = right_point_y + 1;            // reset y location
+      ra_y[2] = right_point_y;                // reset y location
+      ra_y[3] = right_point_y - 1;            // reset y location
+      ra_y[4] = right_point_y - 2;            // reset y location
+      ra_y[5] = right_point_y + 2;            // reset y location
+      ra_y[6] = right_point_y + 1;            // reset y location
+      ra_y[7] = right_point_y;                // reset y location
+      ra_y[8] = right_point_y - 1;            // reset y location
+      ra_y[9] = right_point_y - 2;            // reset y location
+
       zl = rand()%(d-0 + 1) + 0;
       la_x[0] = 27 + zl; // reset x location
       la_x[1] = 26 + zl; // reset x location
@@ -364,7 +445,6 @@ void Game1() {
       la_x[7] = 26 + zl; // reset x location
       la_x[8] = 27 + zl; // reset x location
       la_x[9] = 28 + zl; // reset x location
-
       left_point_y = rand()%(15-0 + 1) + 0;  // new random y value
       la_y[0] = left_point_y + 2;            // reset y location
       la_y[1] = left_point_y + 1;            // reset y location
@@ -376,6 +456,52 @@ void Game1() {
       la_y[7] = left_point_y;                // reset y location
       la_y[8] = left_point_y - 1;            // reset y location
       la_y[9] = left_point_y - 2;            // reset y location
+
+      zu = rand()%(d-0 + 1) + 0;
+      ua_y[0] = 18 + zu; // reset y location
+      ua_y[1] = 17 + zu; // reset y location
+      ua_y[2] = 16 + zu; // reset y location
+      ua_y[3] = 17 + zu; // reset y location
+      ua_y[4] = 18 + zu; // reset y location
+      ua_y[5] = 19 + zu; // reset y location
+      ua_y[6] = 18 + zu; // reset y location
+      ua_y[7] = 17 + zu; // reset y location
+      ua_y[8] = 18 + zu; // reset y location
+      ua_y[9] = 19 + zu; // reset y location
+      up_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      ua_x[0] = up_point_x + 2;            // reset x location
+      ua_x[1] = up_point_x + 1;            // reset x location
+      ua_x[2] = up_point_x;                // reset x location
+      ua_x[3] = up_point_x - 1;            // reset x location
+      ua_x[4] = up_point_x - 2;            // reset x location
+      ua_x[5] = up_point_x + 2;            // reset x location
+      ua_x[6] = up_point_x + 1;            // reset x location
+      ua_x[7] = up_point_x;                // reset x location
+      ua_x[8] = up_point_x - 1;            // reset x location
+      ua_x[9] = up_point_x - 2;            // reset x location
+
+      zd = rand()%(d-0 + 1) + 0;
+      da_y[0] = -3 - zd; // reset y location
+      da_y[1] = -2 - zd; // reset y location
+      da_y[2] = -1 - zd; // reset y location
+      da_y[3] = -2 - zd; // reset y location
+      da_y[4] = -3 - zd; // reset y location
+      da_y[5] = -4 - zd; // reset y location
+      da_y[6] = -3 - zd; // reset y location
+      da_y[7] = -2 - zd; // reset y location
+      da_y[8] = -3 - zd; // reset y location
+      da_y[9] = -4 - zd; // reset y location
+      down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      da_x[0] = down_point_x + 2;            // reset x location
+      da_x[1] = down_point_x + 1;            // reset x location
+      da_x[2] = down_point_x;                // reset x location
+      da_x[3] = down_point_x - 1;            // reset x location
+      da_x[4] = down_point_x - 2;            // reset x location
+      da_x[5] = down_point_x + 2;            // reset x location
+      da_x[6] = down_point_x + 1;            // reset x location
+      da_x[7] = down_point_x;                // reset x location
+      da_x[8] = down_point_x - 1;            // reset x location
+      da_x[9] = down_point_x - 2;            // reset x location
     }
     if (la_x[2]==-4) {
       zl = rand()%(d-0 + 1) + 0;
@@ -424,7 +550,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 30;
+      pointsdot_countdown = 50;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -440,6 +566,52 @@ void Game1() {
       int ua_x[10] = {up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2,up_point_x-2,up_point_x-1,up_point_x,up_point_x+1,up_point_x+2};
       int ua_y[10] = {18,17,16,17,18,19,18,17,18,19};
       */
+      zr = rand()%(d-0 + 1) + 0;
+      ra_x[0] = -4 - zr; // reset x location
+      ra_x[1] = -3 - zr; // reset x location
+      ra_x[2] = -2 - zr; // reset x location
+      ra_x[3] = -3 - zr; // reset x location
+      ra_x[4] = -4 - zr; // reset x location
+      ra_x[5] = -5 - zr; // reset x location
+      ra_x[6] = -4 - zr; // reset x location
+      ra_x[7] = -3 - zr; // reset x location
+      ra_x[8] = -4 - zr; // reset x location
+      ra_x[9] = -5 - zr; // reset x location
+      right_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      ra_y[0] = right_point_y + 2;            // reset y location
+      ra_y[1] = right_point_y + 1;            // reset y location
+      ra_y[2] = right_point_y;                // reset y location
+      ra_y[3] = right_point_y - 1;            // reset y location
+      ra_y[4] = right_point_y - 2;            // reset y location
+      ra_y[5] = right_point_y + 2;            // reset y location
+      ra_y[6] = right_point_y + 1;            // reset y location
+      ra_y[7] = right_point_y;                // reset y location
+      ra_y[8] = right_point_y - 1;            // reset y location
+      ra_y[9] = right_point_y - 2;            // reset y location
+
+      zl = rand()%(d-0 + 1) + 0;
+      la_x[0] = 27 + zl; // reset x location
+      la_x[1] = 26 + zl; // reset x location
+      la_x[2] = 25 + zl; // reset x location
+      la_x[3] = 26 + zl; // reset x location
+      la_x[4] = 27 + zl; // reset x location
+      la_x[5] = 28 + zl; // reset x location
+      la_x[6] = 27 + zl; // reset x location
+      la_x[7] = 26 + zl; // reset x location
+      la_x[8] = 27 + zl; // reset x location
+      la_x[9] = 28 + zl; // reset x location
+      left_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      la_y[0] = left_point_y + 2;            // reset y location
+      la_y[1] = left_point_y + 1;            // reset y location
+      la_y[2] = left_point_y;                // reset y location
+      la_y[3] = left_point_y - 1;            // reset y location
+      la_y[4] = left_point_y - 2;            // reset y location
+      la_y[5] = left_point_y + 2;            // reset y location
+      la_y[6] = left_point_y + 1;            // reset y location
+      la_y[7] = left_point_y;                // reset y location
+      la_y[8] = left_point_y - 1;            // reset y location
+      la_y[9] = left_point_y - 2;            // reset y location
+
       zu = rand()%(d-0 + 1) + 0;
       ua_y[0] = 18 + zu; // reset y location
       ua_y[1] = 17 + zu; // reset y location
@@ -451,7 +623,6 @@ void Game1() {
       ua_y[7] = 17 + zu; // reset y location
       ua_y[8] = 18 + zu; // reset y location
       ua_y[9] = 19 + zu; // reset y location
-
       up_point_x = rand()%(23-0 + 1) + 0;  // new random y value
       ua_x[0] = up_point_x + 2;            // reset x location
       ua_x[1] = up_point_x + 1;            // reset x location
@@ -463,6 +634,29 @@ void Game1() {
       ua_x[7] = up_point_x;                // reset x location
       ua_x[8] = up_point_x - 1;            // reset x location
       ua_x[9] = up_point_x - 2;            // reset x location
+
+      zd = rand()%(d-0 + 1) + 0;
+      da_y[0] = -3 - zd; // reset y location
+      da_y[1] = -2 - zd; // reset y location
+      da_y[2] = -1 - zd; // reset y location
+      da_y[3] = -2 - zd; // reset y location
+      da_y[4] = -3 - zd; // reset y location
+      da_y[5] = -4 - zd; // reset y location
+      da_y[6] = -3 - zd; // reset y location
+      da_y[7] = -2 - zd; // reset y location
+      da_y[8] = -3 - zd; // reset y location
+      da_y[9] = -4 - zd; // reset y location
+      down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      da_x[0] = down_point_x + 2;            // reset x location
+      da_x[1] = down_point_x + 1;            // reset x location
+      da_x[2] = down_point_x;                // reset x location
+      da_x[3] = down_point_x - 1;            // reset x location
+      da_x[4] = down_point_x - 2;            // reset x location
+      da_x[5] = down_point_x + 2;            // reset x location
+      da_x[6] = down_point_x + 1;            // reset x location
+      da_x[7] = down_point_x;                // reset x location
+      da_x[8] = down_point_x - 1;            // reset x location
+      da_x[9] = down_point_x - 2;            // reset x location
     }
     if (ua_y[2]==-4) {
       zu = rand()%(d-0 + 1) + 0;
@@ -512,7 +706,7 @@ void Game1() {
       matrix.writeScreen();
       delay(2000);
       matrix.clearScreen();
-      pointsdot_countdown = 30;
+      pointsdot_countdown = 50;
       //taking code from stack overflow
       //https://stackoverflow.com/questions/12657962/how-do-i-generate-a-random-number-between-two-variables-that-i-have-stored
       pointsdot_x = rand()%(23-0 + 1) + 0;
@@ -528,6 +722,75 @@ void Game1() {
       int da_x[10] = {down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2,down_point_x-2,down_point_x-1,down_point_x,down_point_x+1,down_point_x+2};
       int da_y[10] = {-3,-2,-1,-2,-3,-4,-3,-2,-3,-4};
       */
+      zr = rand()%(d-0 + 1) + 0;
+      ra_x[0] = -4 - zr; // reset x location
+      ra_x[1] = -3 - zr; // reset x location
+      ra_x[2] = -2 - zr; // reset x location
+      ra_x[3] = -3 - zr; // reset x location
+      ra_x[4] = -4 - zr; // reset x location
+      ra_x[5] = -5 - zr; // reset x location
+      ra_x[6] = -4 - zr; // reset x location
+      ra_x[7] = -3 - zr; // reset x location
+      ra_x[8] = -4 - zr; // reset x location
+      ra_x[9] = -5 - zr; // reset x location
+      right_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      ra_y[0] = right_point_y + 2;            // reset y location
+      ra_y[1] = right_point_y + 1;            // reset y location
+      ra_y[2] = right_point_y;                // reset y location
+      ra_y[3] = right_point_y - 1;            // reset y location
+      ra_y[4] = right_point_y - 2;            // reset y location
+      ra_y[5] = right_point_y + 2;            // reset y location
+      ra_y[6] = right_point_y + 1;            // reset y location
+      ra_y[7] = right_point_y;                // reset y location
+      ra_y[8] = right_point_y - 1;            // reset y location
+      ra_y[9] = right_point_y - 2;            // reset y location
+
+      zl = rand()%(d-0 + 1) + 0;
+      la_x[0] = 27 + zl; // reset x location
+      la_x[1] = 26 + zl; // reset x location
+      la_x[2] = 25 + zl; // reset x location
+      la_x[3] = 26 + zl; // reset x location
+      la_x[4] = 27 + zl; // reset x location
+      la_x[5] = 28 + zl; // reset x location
+      la_x[6] = 27 + zl; // reset x location
+      la_x[7] = 26 + zl; // reset x location
+      la_x[8] = 27 + zl; // reset x location
+      la_x[9] = 28 + zl; // reset x location
+      left_point_y = rand()%(15-0 + 1) + 0;  // new random y value
+      la_y[0] = left_point_y + 2;            // reset y location
+      la_y[1] = left_point_y + 1;            // reset y location
+      la_y[2] = left_point_y;                // reset y location
+      la_y[3] = left_point_y - 1;            // reset y location
+      la_y[4] = left_point_y - 2;            // reset y location
+      la_y[5] = left_point_y + 2;            // reset y location
+      la_y[6] = left_point_y + 1;            // reset y location
+      la_y[7] = left_point_y;                // reset y location
+      la_y[8] = left_point_y - 1;            // reset y location
+      la_y[9] = left_point_y - 2;            // reset y location
+
+      zu = rand()%(d-0 + 1) + 0;
+      ua_y[0] = 18 + zu; // reset y location
+      ua_y[1] = 17 + zu; // reset y location
+      ua_y[2] = 16 + zu; // reset y location
+      ua_y[3] = 17 + zu; // reset y location
+      ua_y[4] = 18 + zu; // reset y location
+      ua_y[5] = 19 + zu; // reset y location
+      ua_y[6] = 18 + zu; // reset y location
+      ua_y[7] = 17 + zu; // reset y location
+      ua_y[8] = 18 + zu; // reset y location
+      ua_y[9] = 19 + zu; // reset y location
+      up_point_x = rand()%(23-0 + 1) + 0;  // new random y value
+      ua_x[0] = up_point_x + 2;            // reset x location
+      ua_x[1] = up_point_x + 1;            // reset x location
+      ua_x[2] = up_point_x;                // reset x location
+      ua_x[3] = up_point_x - 1;            // reset x location
+      ua_x[4] = up_point_x - 2;            // reset x location
+      ua_x[5] = up_point_x + 2;            // reset x location
+      ua_x[6] = up_point_x + 1;            // reset x location
+      ua_x[7] = up_point_x;                // reset x location
+      ua_x[8] = up_point_x - 1;            // reset x location
+      ua_x[9] = up_point_x - 2;            // reset x location
+
       zd = rand()%(d-0 + 1) + 0;
       da_y[0] = -3 - zd; // reset y location
       da_y[1] = -2 - zd; // reset y location
@@ -539,7 +802,6 @@ void Game1() {
       da_y[7] = -2 - zd; // reset y location
       da_y[8] = -3 - zd; // reset y location
       da_y[9] = -4 - zd; // reset y location
-
       down_point_x = rand()%(23-0 + 1) + 0;  // new random y value
       da_x[0] = down_point_x + 2;            // reset x location
       da_x[1] = down_point_x + 1;            // reset x location
@@ -589,6 +851,7 @@ void Game1() {
     da_y[9] = da_y[9] + 1; //increment arrow down
     
     // determine difficulty of game
+    //d = 100 - points_counter*points_counter - 18;
     d = 100 - points_counter*points_counter - 18;
 
     if (health_bar==0) {
