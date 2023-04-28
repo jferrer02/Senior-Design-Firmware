@@ -1,4 +1,5 @@
 #include "Adafruit_HT1632.h"
+#include "MemoryFree.h"
 #define HT_DATA 3
 #define HT_WR   4
 #define HT_CS   5
@@ -42,7 +43,7 @@ int maze[maze_width][maze_length] = {
 };
 
 //menu variables
-int menu_val = 0;
+int menu_val = 1;
 int menu_sel = 0;
 
 void setup() {
@@ -875,7 +876,7 @@ void Game1() {
     }
     
     matrix.writeScreen();
-    if (b_1 == LOW) {
+    if (b_2 == LOW) {
       break;
     }
     delay(50); 
@@ -898,6 +899,12 @@ void OutputArrows(int x0,int x1,int x2,int x3,int x4,int x5,int x6,int x7,int x8
 void Maze() {
   int r = 0;
   while (r < 1) {
+    b_2 = digitalRead(button_2);
+    //Serial.print("freeMemory()=");
+    //Serial.println(freeMemory());
+    if (b_2 == LOW) {
+      r++;
+    }
     matrix.writeScreen();
     displaymaze();
     moveDot();
@@ -906,13 +913,15 @@ void Maze() {
       matrix.clearScreen();
       matrix.setCursor(1, 1);
       matrix.setRotation(0);
-      matrix.print("You Win!");
+      matrix.print("You \nWin!");
       matrix.writeScreen();
       delay(5000);
       x = 1;
       y = 1;
       matrix.clearScreen();    
-  }
+      break;
+    }
+  delay(50); 
   }
 }
 
@@ -926,22 +935,18 @@ void moveDot() {
     //Move only if it isn't a wall
     //Right 
     if (X > 750 && abs(Y) < 650 && checkvalid(x+1,y) ) {
-      //x--;
       x++;
     }
     //Left
     else if (X < 250 && abs(Y) < 650 && checkvalid(x-1,y) ) {
-      //x++;
       x--;
     }
     //Up
     else if (Y > 750 && abs(X) < 650 && checkvalid(x,y-1) ) {
-      //y++;
       y--;
     }
     //Down
     else if (Y < 250 && abs(X) < 650 && checkvalid(x,y+1) ) {
-      //y--;
       y++;
     }
     //Out of bound check
@@ -958,7 +963,6 @@ void moveDot() {
       y = 15;
     } 
     matrix.setPixel(x, y);
-    
     matrix.writeScreen();
     matrix.clrPixel(x, y);
     
@@ -966,8 +970,8 @@ void moveDot() {
 }
 
 void displaymaze() {    
-  for (int y = 0; y < maze_width; y++)  {
-    for (int x = 0; x < maze_length; x++) {
+  for (int y = 0; y < maze_width; y++) {
+    for (int x = 0; x < maze_length; x++){
         if (maze[y][x] == 1) {
           matrix.setPixel(x, y);
       }
@@ -976,16 +980,16 @@ void displaymaze() {
 }
 
 bool checkvalid(int x, int y) {
-  Serial.print("Checking position: ");
-  Serial.print(x);
-  Serial.print(",");
-  Serial.println(y);
+  // Serial.print("Checking position: ");
+  // Serial.print(x);
+  // Serial.print(",");
+  // Serial.println(y);
     
   if(maze[y][x] == 1) {
-    Serial.println("Is a wall"); 
+    //Serial.println("Is a wall"); 
     return false;
   }
-  Serial.println("Open path");
+  //Serial.println("Open path");
   return true;  
 }
 
@@ -1006,8 +1010,8 @@ void loop() {
   
   if (X < 300) {
     menu_val--;
-    if (menu_val < 0) {
-      menu_val = 0;
+    if (menu_val < 1) {
+      menu_val = 1;
     }
   }
   
@@ -1018,7 +1022,7 @@ void loop() {
     menu_sel = 0;
   }
   matrix.print("Menu\n"); //print menu at top of screen
-  if (menu_val == 0) {
+  /*if (menu_val == 0) {
     matrix.print("Comp");
     if (menu_sel == 1) {
       matrix.clearScreen();
@@ -1028,7 +1032,7 @@ void loop() {
       delay(5000);
       testcomponents();
     }
-  }
+  }*/
   if (menu_val == 1) {
     matrix.print("Game");
     if (menu_sel == 1) {
@@ -1048,6 +1052,7 @@ void loop() {
       matrix.print("Maze\nGame");
       matrix.writeScreen();
       delay(5000);
+      matrix.clearScreen();
       Maze();
     }
   }
