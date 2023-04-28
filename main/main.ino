@@ -906,7 +906,7 @@ void Maze() {
       r++;
     }
     matrix.writeScreen();
-    displaymaze();
+    //displaymaze();
     moveDot();
     delay(100);
     if(x == 21 and y == 15) {
@@ -987,6 +987,7 @@ bool checkvalid(int x, int y) {
     
   if(maze[y][x] == 1) {
     //Serial.println("Is a wall"); 
+    matrix.setPixel(x, y);
     return false;
   }
   //Serial.println("Open path");
