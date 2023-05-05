@@ -1,5 +1,5 @@
 #include "Adafruit_HT1632.h"
-#include "MemoryFree.h"
+//#include "MemoryFree.h"
 #define HT_DATA 3
 #define HT_WR   4
 #define HT_CS   5
@@ -45,6 +45,7 @@ int maze[maze_width][maze_length] = {
 //menu variables
 int menu_val = 1;
 int menu_sel = 0;
+int dotbox = 0;
 
 void setup() {
   pinMode(button_1, INPUT);
@@ -856,22 +857,65 @@ void Game1() {
     d = 100 - points_counter*points_counter - 18;
 
     if (health_bar==0) {
-      matrix.setRotation(0);
+      // Game Over
       matrix.clearScreen();
-      matrix.setCursor(0, 0); 
+      matrix.setCursor(0, 0);
+      matrix.setRotation(0);
+      matrix.print("   G\nr");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("  Ga\ner");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print(" Gam\nver");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
       matrix.print("Game\nOver");
       matrix.writeScreen();
-      delay(5000);
+      delay(3000);
+      matrix.clearScreen();
+      delay(500);
+      
       break;
     }
 
-    if (points_counter==10) {
-      matrix.setRotation(0);
+    if (points_counter==10) { 
+      //You Win!
       matrix.clearScreen();
-      matrix.setCursor(0, 0); 
+      matrix.setCursor(0, 0);
+      matrix.setRotation(0);
+      matrix.print("   Y\n   W");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("  Yo\n  Wi");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print(" You\n Win");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("You\nWin");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
       matrix.print("You\nWin!");
       matrix.writeScreen();
-      delay(5000);
+      delay(3000);
+      matrix.clearScreen();
+      delay(500);
+      
       break;  
     }
     
@@ -911,11 +955,34 @@ void Maze() {
     delay(100);
     if(x == 21 and y == 15) {
       matrix.clearScreen();
-      matrix.setCursor(1, 1);
+      matrix.setCursor(0, 0);
       matrix.setRotation(0);
-      matrix.print("You \nWin!");
+      // You Win!
+      matrix.print("   Y\n   W");
       matrix.writeScreen();
-      delay(5000);
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("  Yo\n  Wi");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print(" You\n Win");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("You\nWin");
+      matrix.writeScreen();
+      delay(100);
+      matrix.clearScreen();
+      matrix.setCursor(0, 0);
+      matrix.print("You\nWin!");
+      matrix.writeScreen();
+      delay(3000);
+      matrix.clearScreen();
+      delay(500);
       x = 1;
       y = 1;
       matrix.clearScreen();    
@@ -998,6 +1065,29 @@ void loop() {
   matrix.setRotation(0);
   matrix.clearScreen();
   matrix.setCursor(0, 0);
+  if (dotbox == 0) {
+    matrix.print("   D\nx");
+    matrix.writeScreen();
+    delay(200);
+    matrix.clearScreen();
+    matrix.setCursor(0, 0);
+    matrix.print("  Do\nox");
+    matrix.writeScreen();
+    delay(200);
+    matrix.clearScreen();
+    matrix.setCursor(0, 0);
+    matrix.print(" Dot\nBox");
+    matrix.writeScreen();
+    delay(200);
+    matrix.clearScreen();
+    matrix.setCursor(0, 0);
+    matrix.print("Dot\n Box");
+    matrix.writeScreen();
+    delay(3000);
+    matrix.clearScreen();
+    delay(500);
+    dotbox++;
+  }
   b_1 = digitalRead(button_1);
   b_2 = digitalRead(button_2);
   X = analogRead(A0);  // read the A0 input pin
